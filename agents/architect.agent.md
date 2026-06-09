@@ -71,16 +71,16 @@ You define *what* gets built and *how* it should be built. You are responsible f
 
 ## Domain Knowledge
 
-### DAO Project
-- 5 Pact modules: governance-types (interface), governance-token, distribution-module, governance-voting, gas-relayer
-- Key patterns: Live vote adjustment (ADR-001), accumulator dividends (ADR-002), vote tables in governance-token (ADR-004)
-- Deploy order: types → token → dividend/voting → gas-station
-- Principal namespace from sender00: `<namespace-principal>`
+### Example Pact Project
+- Typical split: shared types/interface module, token/state module, distribution or accounting module, governance module, optional gas-relayer module
+- Common patterns: accumulator accounting, explicit capability composition, monotonic state transitions, and module-level invariants
+- Typical deploy order: types/interface → core state module → dependent feature modules → optional relayer/support module
+- Namespace and principal setup are environment-specific and must be documented in the project ADR and deployment runbook
 
-### Ledger Signer Project
-- TypeScript monorepo: @pact-community/ledger-core, @pact-community/ledger-cli, @pact-community/ledger-web
-- APDU-based communication with Ledger hardware devices
-- Transport abstraction layer (USB HID, WebUSB, Bluetooth)
+### Hardware Signer Integration
+- TypeScript monorepos often separate core transport/signing logic, CLI tooling, and browser-facing adapters
+- Hardware communication commonly follows APDU-style command/response framing with strict message validation
+- Transport abstraction should support platform-specific adapters (for example USB HID, WebUSB, or Bluetooth) behind a stable signing interface
 
 ## MCP Tools
 
