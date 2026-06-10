@@ -1,5 +1,5 @@
 ---
-description: "Architect/Orchestrator: Break a complex feature into implementation tasks with dependencies, estimates, and assignment recommendations."
+description: "Architect/Admin: Break a complex feature into implementation tasks with dependencies, estimates, and assignment recommendations."
 ---
 # Task Decomposition
 

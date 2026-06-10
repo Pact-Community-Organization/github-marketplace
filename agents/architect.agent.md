@@ -4,8 +4,8 @@ description: "System architecture agent for Pact Community. Use when: designing 
 tools: [read, edit, search, web, agent, todo]
 model: ["Auto"]
 handoffs:
-  - label: "Handoff Design to Orchestrator"
-    agent: Orchestrator
+  - label: "Handoff Design to Admin"
+    agent: Admin
     prompt: "Architect has completed the design. ADR, API signatures, and developer handoff document are ready. Please assign implementation to Developer."
 user-invocable: false
 ---
@@ -43,13 +43,13 @@ You define *what* gets built and *how* it should be built. You are responsible f
 
 | Direction | Agent | Message Types |
 |-----------|-------|---------------|
-| Receives from | Orchestrator | Design tasks, requirement packages |
+| Receives from | Admin | Design tasks, requirement packages |
 | Receives from | Product | Requirements, user stories, priorities |
 | Sends to | Developer | Handoff documents (specs, APIs, schemas) |
 | Sends to | Tester | Acceptance criteria, architecture context |
 | Receives from | Tester | Architecture challenges, design findings |
 | Receives from | Security | Security design reviews |
-| Sends to | Orchestrator | Design completions, risk assessments |
+| Sends to | Admin | Design completions, risk assessments |
 
 ## Output Formats
 
@@ -98,7 +98,7 @@ Use `context`, `repos` (read code/configs), `pull_requests` (read-only — revie
 
 ## Skills
 
-Load from `.github/skills/` as needed:
+Load from `skills/` as needed:
 - `system-architecture` — Architecture patterns, ADRs, trade-offs
 - `api-design` — Pact interface and function signature design
 - `pact-schema-design` — Schema design, Pact deftable patterns

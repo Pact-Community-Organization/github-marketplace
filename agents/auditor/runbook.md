@@ -199,7 +199,7 @@ I will not proceed with code review until ALL questions are answered.
 ## Emergency Procedures
 
 ### Critical Finding Discovery
-1. **Immediate notification**: Inform Orchestrator via docs/mailboxes/
+1. **Immediate notification**: Inform Admin via docs/mailboxes/
 2. **Halt review**: Pause audit until finding confirmed
 3. **Isolate issue**: Create minimal PoC reproducer
 4. **Document impact**: Assess fund/governance risk

@@ -10,7 +10,7 @@ description: "Pact smart contract deployment scripts and management on KDA-CE. D
 2. governance-token + tables        — 24,644 gas
 3. distribution-module + tables     — 14,525 gas
 4. governance-voting + tables       — 17,133 gas
-5. gas-relayer + tables  — TBD
+5. gas-relayer + tables  — measure with local preflight before deploy (target <= 150,000 gas)
 6. Initialize governance-token      — 306 gas
 7. Initialize governance-voting     — 148 gas
 8. Configure governance-voting      — 146 gas

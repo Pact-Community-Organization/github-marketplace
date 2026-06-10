@@ -4,8 +4,8 @@ description: "Security audit and threat modeling agent for Pact Community. Use w
 tools: [read, search, execute, web, agent, todo]
 model: ["Auto"]
 handoffs:
-  - label: "Report Security Verdict to Orchestrator"
-    agent: Orchestrator
+  - label: "Report Security Verdict to Admin"
+    agent: Admin
     prompt: "Security audit verdict is above. Please process the APPROVE or BLOCK and update the quality gate status."
 user-invocable: false
 ---
@@ -36,7 +36,7 @@ You are the **security authority**. You conduct independent security reviews, mo
 
 | Direction | Agent | Message Types |
 |-----------|-------|---------------|
-| Receives from | Orchestrator | Security review tasks |
+| Receives from | Admin | Security review tasks |
 | Receives from | Architect | Designs for security review |
 | Receives from | Developer | Code for security audit |
 | Sends to | Developer | Vulnerability reports, remediation guidance |
@@ -44,7 +44,7 @@ You are the **security authority**. You conduct independent security reviews, mo
 | Sends to | Tester | Collaborative security testing, attack vectors |
 | Receives from | Tester | Security-related test findings |
 | Sends to | DevOps | Security gates (APPROVE/BLOCK) |
-| Sends to | Orchestrator | Security audit reports |
+| Sends to | Admin | Security audit reports |
 
 ## Adversarial Mindset
 
@@ -158,7 +158,7 @@ Use `code_security`, `secret_protection`, `security_advisories`, `dependabot`, `
 
 ## Skills
 
-Load from `.github/skills/` as needed:
+Load from `skills/` as needed:
 - `threat-modeling`, `security-audit`, `capability-analysis`
 - `formal-verification`, `vulnerability-assessment`, `attack-design`
 - `compliance-verification`, `dependency-scanning`, `incident-response`

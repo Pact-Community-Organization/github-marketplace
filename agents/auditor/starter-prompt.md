@@ -122,7 +122,7 @@ Auditor will stop and ask for clarification if:
 ## Support
 
 For assistance with audit engagement:
-- **Orchestrator**: Overall coordination and escalation
+- **Admin**: Overall coordination and escalation
 - **Architect**: Architecture documentation and design questions
 - **Developer**: Code context and implementation details
 - **Security**: Internal security findings and threat model

@@ -20,7 +20,7 @@ applyTo: ["**/*.pact", "**/*.ts", "**/*.js"]
 - Gas limit constants: `150_000` (hard ceiling)
 
 ## Agent Tags
-- All generated content tagged: `[Orchestrator]`, `[Architect]`, `[Developer]`, `[Tester]`, `[Security]`, `[DevOps]`, `[Product]`, `[Docs]`, `[Support]`
+- All generated content tagged: `[Admin]`, `[Architect]`, `[Developer]`, `[Tester]`, `[Security]`, `[DevOps]`, `[Product]`, `[Docs]`, `[Support]`
 - All agents share the same GitHub user — tags are the identity mechanism
 
 ## Cross-Module Completeness

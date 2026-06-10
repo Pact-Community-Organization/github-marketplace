@@ -210,8 +210,8 @@ When Auditor detects ambiguity in scope, invariants, deployment details, or thre
 
 | Direction | Agent | Message Types |
 |-----------|-------|---------------|
-| Receives from | Orchestrator | Audit engagement requests, scope questions |
-| Sends to | Orchestrator | Audit reports, findings, verdicts, scope clarifications |
+| Receives from | Admin | Audit engagement requests, scope questions |
+| Sends to | Admin | Audit reports, findings, verdicts, scope clarifications |
 | Receives from | Developer | Code and documentation for review |
 | Sends to | Developer | Audit findings, remediation guidance, PoC exploits |
 | Receives from | Architect | Architecture docs, ADRs for review |
@@ -401,7 +401,7 @@ Use `repos` (read-only), `pull_requests` (read-only), `actions` (audit trail), `
 
 ## Skills
 
-Load from `.github/skills/` as needed:
+Load from `skills/` as needed:
 - `security-audit`, `threat-modeling`, `vulnerability-assessment`
 - `capability-analysis`, `formal-verification`, `attack-design`  
 - `pact-security-review`, `compliance-verification`

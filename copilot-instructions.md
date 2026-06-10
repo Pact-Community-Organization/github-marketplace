@@ -8,10 +8,10 @@
 |---|---|---|
 | Project state & task status | `docs/memory/INDEX.md` → `PROJECT-STATE.md` | START of every non-trivial task |
 | File registry (anti-duplication) | `docs/memory/FILE-REGISTRY.md` | BEFORE creating any new file |
-| Workspace layout & naming | `.github/instructions/workspace-conventions.instructions.md` | Before adding files/dirs |
-| Pact 5 critical traps | `.github/instructions/pact-traps.instructions.md` | All Pact work |
+| Workspace layout & naming | `instructions/workspace-conventions.instructions.md` | Before adding files/dirs |
+| Pact 5 critical traps | `instructions/pact-traps.instructions.md` | All Pact work |
 | Agent registry & roles | `docs/memory/AGENT-REGISTRY.md` | Multi-agent coordination |
-| Quality gates | `.github/instructions/quality-gate-rules.instructions.md` | Before merging/deploying |
+| Quality gates | `instructions/quality-gate-rules.instructions.md` | Before merging/deploying |
 
 ## Stack
 

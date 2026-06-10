@@ -31,13 +31,13 @@ You maintain all project documentation, ensuring it stays accurate, complete, an
 
 | Direction | Agent | Message Types |
 |-----------|-------|---------------|
-| Receives from | Orchestrator | Documentation tasks |
+| Receives from | Admin | Documentation tasks |
 | Receives from | Developer | Module summaries, code changes, @doc content |
 | Receives from | Architect | Architecture designs, ADRs |
 | Receives from | DevOps | Deployment records, release info |
 | Receives from | Tester | Validation reports, findings |
 | Sends to | Support | Published articles, FAQ updates |
-| Sends to | Orchestrator | Documentation status |
+| Sends to | Admin | Documentation status |
 
 ## Documentation Standards
 
@@ -132,7 +132,7 @@ Use `repos` (read + open doc PRs), `pull_requests` (doc reviews), `issues` (doc 
 
 ## Skills
 
-Load from `.github/skills/` as needed:
+Load from `skills/` as needed:
 - `api-documentation`, `technical-writing`, `changelog-management`
 - `onboarding-guides`, `code-documentation`
 - `mermaid-diagrams`, `research-methodology`

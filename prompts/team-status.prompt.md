@@ -1,5 +1,5 @@
 ---
-description: "Orchestrator: Generate a team status report showing all active tasks, agent assignments, quality gate progress, and blockers."
+description: "Admin: Generate a team status report showing all active tasks, agent assignments, quality gate progress, and blockers."
 ---
 # Team Status
 

@@ -1,5 +1,5 @@
 ---
-description: "Orchestrator: Decompose a user request into agent tasks and assign them. Creates task DAG with dependencies and quality gate checkpoints."
+description: "Admin: Decompose a user request into agent tasks and assign them. Creates task DAG with dependencies and quality gate checkpoints."
 ---
 # Assign Task
 

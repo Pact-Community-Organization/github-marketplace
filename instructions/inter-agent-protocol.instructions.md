@@ -4,7 +4,7 @@ description: "Use when agents communicate with each other, delegate tasks, route
 
 ## Identity
 - All agents share the same GitHub user
-- Identity is established via **prefix tags**: `[Orchestrator]`, `[Architect]`, etc.
+- Identity is established via **prefix tags**: `[Admin]`, `[Architect]`, etc.
 - Every external output (PR comment, issue comment, commit message) MUST be prefixed
 
 ## Communication Channels
@@ -25,24 +25,24 @@ description: "Use when agents communicate with each other, delegate tasks, route
 ## Task Lifecycle
 
 ```
-Product creates story → Orchestrator decomposes →
+Product creates story → Admin decomposes →
   Gate 1: Product → Architect → Developer
-  Gate 2: Developer → Tester + Security → Orchestrator
-  Gate 3: Tester GO + Security APPROVE → DevOps → Orchestrator
+  Gate 2: Developer → Tester + Security → Admin
+  Gate 3: Tester GO + Security APPROVE → DevOps → Admin
 ```
 
 ## Delegation Rules
-1. Orchestrator is the ONLY agent that decomposes and delegates
+1. Admin is the ONLY agent that decomposes and delegates
 2. Agents may request re-delegation via mailbox message
 3. Veto powers:
    - **Tester**: Can block any merge (NO-GO)
    - **Security**: Can block any deployment (CRITICAL finding)
-   - **Orchestrator**: Can redirect or cancel any task
-4. Agents MUST NOT communicate directly with the user (except Orchestrator)
+   - **Admin**: Can redirect or cancel any task
+4. Agents MUST NOT communicate directly with the user (except Admin)
 
 ## Terminal Command Delegation (MANDATORY)
 
-Orchestrator does NOT have terminal access. When any workflow requires running shell commands (tests, Docker, deployment, builds, etc.), Orchestrator MUST delegate to an agent with terminal access.
+Admin does NOT have terminal access. When any workflow requires running shell commands (tests, Docker, deployment, builds, etc.), Admin MUST delegate to an agent with terminal access.
 
 ### Agents with Terminal Access
 | Agent | Terminal Use Cases |
@@ -53,9 +53,9 @@ Orchestrator does NOT have terminal access. When any workflow requires running s
 | **Security** | Security scanning, penetration testing |
 
 ### Rules
-1. Orchestrator MUST NOT suggest commands for the user to run — delegate to the appropriate agent instead
+1. Admin MUST NOT suggest commands for the user to run — delegate to the appropriate agent instead
 2. The delegated agent MUST execute the commands and report results back
-3. If a command fails, the delegated agent MUST diagnose and fix (not bounce back to Orchestrator without analysis)
+3. If a command fails, the delegated agent MUST diagnose and fix (not bounce back to Admin without analysis)
 4. Long-running commands (test suites, deployments): the agent MUST wait for completion before reporting
 
 ## Message Format

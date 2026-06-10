@@ -22,7 +22,7 @@ description: "Use when evaluating quality gates, determining merge readiness, or
 
 **Purpose**: Code quality verified before merge to main branch.
 
-**Flow**: Developer → Tester + Security → Orchestrator
+**Flow**: Developer → Tester + Security → Admin
 
 **Pass Criteria**:
 - [ ] REPL tests pass (all `expect` / `expect-failure`)
@@ -43,7 +43,7 @@ description: "Use when evaluating quality gates, determining merge readiness, or
 
 **Purpose**: Production readiness confirmed before deployment.
 
-**Flow**: Tester GO + Security APPROVE → DevOps → Orchestrator
+**Flow**: Tester GO + Security APPROVE → DevOps → Admin
 
 **Pass Criteria**:
 - [ ] Gate 2 passed

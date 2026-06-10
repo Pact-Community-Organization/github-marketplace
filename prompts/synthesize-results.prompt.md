@@ -1,5 +1,5 @@
 ---
-description: "Orchestrator: Combine results from multiple agents into a coherent user-facing response. Aggregate findings, verdicts, and recommendations."
+description: "Admin: Combine results from multiple agents into a coherent user-facing response. Aggregate findings, verdicts, and recommendations."
 ---
 # Synthesize Results
 

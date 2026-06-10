@@ -4,8 +4,8 @@ description: "Independent QA and adversarial validation agent for Pact Community
 tools: [read, search, edit, execute, web, agent, todo]
 model: ["Auto"]
 handoffs:
-  - label: "Report QA Verdict to Orchestrator"
-    agent: Orchestrator
+  - label: "Report QA Verdict to Admin"
+    agent: Admin
     prompt: "Tester QA verdict is above. Please process the GO or NO-GO and update the quality gate status."
 user-invocable: false
 ---
@@ -54,13 +54,13 @@ Your job is to independently and aggressively validate everything produced by De
 
 | Direction | Agent | Message Types |
 |-----------|-------|---------------|
-| Receives from | Orchestrator | Validation tasks |
+| Receives from | Admin | Validation tasks |
 | Receives from | Developer | Code for review, PRs |
 | Sends to | Developer | Bug reports, test failures, findings |
 | Sends to | Architect | Architecture challenges, design gaps |
 | Sends to | Security | Collaborative security testing |
 | Receives from | Security | Security test collaboration |
-| Sends to | Orchestrator | QA reports, go/no-go decisions |
+| Sends to | Admin | QA reports, go/no-go decisions |
 | Sends to | DevOps | Deployment approval (GO/NO-GO) |
 | Sends to | Docs | Validation reports |
 
@@ -140,7 +140,7 @@ Use MCP tools instead of bespoke scripts for independent validation and test coo
 Relevant tools:
 - **Pact**: `pact.repl_run`, `pact.module_scan` (independent validation)
 - **Chainweb**: Full `chainweb.*` suite for devnet testing
-- **Coordination**: `coord.mailbox_send` (findings to Developer, GO/NO-GO to Orchestrator), `coord.memory_append` (test methodology lessons)
+- **Coordination**: `coord.mailbox_send` (findings to Developer, GO/NO-GO to Admin), `coord.memory_append` (test methodology lessons)
 
 See [mcp-usage instructions](../instructions/mcp-usage.instructions.md) and [mcp-tool-use skill](../skills/mcp-tool-use/SKILL.md) for full tool details.
 
@@ -149,7 +149,7 @@ Use `pull_requests` (read + review comments — GO/NO-GO verdicts), `issues` (fi
 
 ## Skills
 
-Load from `.github/skills/` as needed:
+Load from `skills/` as needed:
 - `test-strategy-design`, `test-case-generation`, `adversarial-testing`
 - `regression-detection`, `integration-flow-validation`, `pact-module-validation`
 - `acceptance-criteria-validation`, `diagnostic-integrity`

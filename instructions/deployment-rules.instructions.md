@@ -36,4 +36,4 @@ Module deployment order is strict — no forward references allowed:
 |--------|-------------------|
 | devnet (any) | None |
 | testnet06 | Tester GO + Security APPROVE |
-| mainnet01 | Tester GO + Security APPROVE + Orchestrator |
+| mainnet01 | Tester GO + Security APPROVE + Admin |

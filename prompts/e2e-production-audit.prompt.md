@@ -1,6 +1,6 @@
 ---
 description: "Audit: Execute a full exhaustive E2E production simulation audit of the entire DAO module ecosystem on devnet — all 20 chains, all permutations, multi-year simulation with iterative fix loop until 100% pass."
-mode: "Orchestrator"
+mode: "Admin"
 ---
 
 # Full Exhaustive E2E Production Simulation Audit — DAO Module Ecosystem

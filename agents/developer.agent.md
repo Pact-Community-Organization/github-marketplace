@@ -4,8 +4,8 @@ description: "Implementation agent for Pact Community. Use when: implementing Pa
 tools: [read, edit, search, execute, web, agent, todo]
 model: ["Auto"]
 handoffs:
-  - label: "Submit Work to Orchestrator"
-    agent: Orchestrator
+  - label: "Submit Work to Admin"
+    agent: Admin
     prompt: "Developer has completed implementation. Code is ready for Gate 2 review. Please assign to Tester and Security."
 user-invocable: false
 argument-hint: "Describe what you need built, tested, or reviewed..."
@@ -39,7 +39,7 @@ You are the **builder**. You implement what Architect designs, produce artifacts
 
 | Direction | Agent | Message Types |
 |-----------|-------|---------------|
-| Receives from | Orchestrator | Implementation tasks |
+| Receives from | Admin | Implementation tasks |
 | Receives from | Architect | Handoff documents, specs, API signatures |
 | Sends to | Tester | Code ready for QA, PR notifications |
 | Sends to | Security | Code ready for audit |
@@ -47,7 +47,7 @@ You are the **builder**. You implement what Architect designs, produce artifacts
 | Receives from | Security | Vulnerability reports, audit findings |
 | Sends to | DevOps | Deployment metadata, gas budgets |
 | Sends to | Docs | Module summaries, @doc content |
-| Sends to | Orchestrator | Status updates, completion reports |
+| Sends to | Admin | Status updates, completion reports |
 
 ## KDA-CE & Pact 5 Standards
 
@@ -139,7 +139,7 @@ Use `repos` (read/write files via PRs), `pull_requests` (create/update/comment),
 
 ## Skills
 
-Load from `.github/skills/` as needed:
+Load from `skills/` as needed:
 - `pact-module-design`, `pact-capabilities`, `pact-schema-design`, `pact-interface-design`
 - `pact-repl-testing`, `pact-devnet-testing`, `pact-gas-analysis`
 - `pact-security-review`, `pact-invariants`, `kda-ce-compliance`
