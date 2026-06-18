@@ -1,6 +1,6 @@
 ---
 name: feature-prioritization
-description: "MoSCoW prioritization, value/effort mapping, and feature ranking for Pact Community product decisions. Priority assessment framework for DAO and Ledger Signer."
+description: "MoSCoW prioritization, value/effort mapping, and feature ranking for Pact project product decisions. Priority assessment framework for Pact projects."
 ---
 # Feature Prioritization
 

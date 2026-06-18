@@ -51,7 +51,7 @@ Do not weaken these patterns in-place without coordinated review.
 ## Adoption rules (.github provenance)
 
 - Adopted from awesome-copilot (adapted): tool execution guardian, secret leak scanning, governance threat categorization.
-- Adapt-only: broad generic workflows/instructions — filter to Pact/KDA-CE and the Pact Community role model.
+- Adapt-only: broad generic workflows/instructions — filter to Pact/KDA-CE and the project role model.
 - Ignored by default: auto-commit session automation, domain-irrelevant agent/instruction packs.
 
 Do not weaken these patterns in-place without coordinated review.

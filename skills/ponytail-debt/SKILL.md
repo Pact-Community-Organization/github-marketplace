@@ -1,6 +1,6 @@
 ---
 name: ponytail-debt
-description: "Track and manage intentional minimalism ceilings in Pact Community work, including upgrade triggers, owners, and risk visibility."
+description: "Track and manage intentional minimalism ceilings in project work, including upgrade triggers, owners, and risk visibility."
 ---
 
 # Ponytail Debt Skill

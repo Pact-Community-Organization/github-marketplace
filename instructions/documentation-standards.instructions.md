@@ -1,5 +1,5 @@
 ---
-description: "Use when writing documentation, API references, changelogs, README files, or onboarding guides. Standards for Pact Community documentation."
+description: "Use when writing documentation, API references, changelogs, README files, or onboarding guides. Standards for project documentation."
 applyTo: ["pact-examples/docs/**/*.md", "web-examples/docs/**/*.md", ".github/**/*.md", "**/README.md", "**/CHANGELOG.md"]
 # Documentation Standards
 

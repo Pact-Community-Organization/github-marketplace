@@ -1,6 +1,6 @@
 ---
 name: onboarding-guides
-description: "Developer onboarding and quickstart guides for Pact Community. Setup instructions, development workflow, and getting-started documentation for new contributors."
+description: "Developer onboarding and quickstart guides for Pact projects. Setup instructions, development workflow, and getting-started documentation for new contributors."
 ---
 # Onboarding Guides
 

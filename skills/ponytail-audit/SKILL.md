@@ -1,13 +1,13 @@
 ---
 name: ponytail-audit
-description: "Audit skill for verifying that Pact Community changes follow minimal-first execution and preserve mandatory safety safeguards."
+description: "Audit skill for verifying that project changes follow minimal-first execution and preserve mandatory safety safeguards."
 ---
 
 # Ponytail Audit Skill
 
 ## Purpose
 
-Audit completed work for compliance with Ponytail minimalism plus Pact Community safety requirements.
+Audit completed work for compliance with Ponytail minimalism plus project safety requirements.
 
 ## Audit Criteria
 

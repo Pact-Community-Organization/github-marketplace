@@ -1,6 +1,6 @@
 ---
 name: stakeholder-reporting
-description: "Status updates and milestone reports for Pact Community stakeholders. Sprint reviews, progress tracking, and executive summary formats."
+description: "Status updates and milestone reports for project stakeholders. Sprint reviews, progress tracking, and executive summary formats."
 ---
 # Stakeholder Reporting
 

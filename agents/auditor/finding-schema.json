@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://smartpacts.com/schemas/audit-finding.json",
-  "title": "Pact Community Audit Finding",
-  "description": "JSON schema for third-party audit findings in Pact Community projects",
+  "title": "Pact Audit Finding",
+  "description": "JSON schema for third-party audit findings in Pact projects",
   "type": "object",
   "required": [
     "id",
@@ -296,7 +296,7 @@
         "code_example": "(with-capability (CLAIM account amount) (enforce (<= amount owed) \"Claim exceeds owed amount\") ...)"
       },
       "status": "Open",
-      "auditor": "Pact Community Auditor Agent",
+      "auditor": "Pact Auditor Agent",
       "audit_date": "2026-04-15",
       "tags": ["capability-bypass", "token-mechanics", "governance"],
       "blocks_deployment": true,

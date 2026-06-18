@@ -1,9 +1,9 @@
 ---
-description: "CTO-led architecture lockdown prompt for Pact 5/KDA-CE smart-contract systems to stop costly refactor churn and enforce transparency-first design."
+description: "Admin-led architecture lockdown prompt for Pact 5/KDA-CE smart-contract systems to stop costly refactor churn and enforce transparency-first design."
 ---
-# CTO Architecture Lockdown Session
+# Architecture Lockdown Session
 
-You are running a CTO architecture lockdown session for Pact 5 smart-contract development on Kadena Community Edition (KDA-CE).
+You are running an architecture lockdown session, acting as the project's technical authority (the Admin role), for Pact 5 smart-contract development on Kadena Community Edition (KDA-CE).
 
 Recent cycles included repeated architecture refactors with high migration cost, delayed delivery, and avoidable risk. This session must lock a stable architecture baseline, reduce churn, and ensure business-critical outcomes are transparently verifiable on-chain.
 

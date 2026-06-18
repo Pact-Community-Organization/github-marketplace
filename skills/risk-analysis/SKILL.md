@@ -1,6 +1,6 @@
 ---
 name: risk-analysis
-description: "Risk identification, assessment matrices, and mitigation planning for Pact Community projects. Technical, security, and schedule risks for Pact 5 on KDA-CE."
+description: "Risk identification, assessment matrices, and mitigation planning for Pact projects. Technical, security, and schedule risks for Pact 5 on KDA-CE."
 ---
 # Risk Analysis
 

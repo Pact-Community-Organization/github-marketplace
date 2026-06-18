@@ -1,6 +1,6 @@
 ---
 name: ponytail
-description: "Minimal-first implementation skill for Pact Community agents: six-step ladder to deliver the smallest correct change with safeguards."
+description: "Minimal-first implementation skill for the project agents: six-step ladder to deliver the smallest correct change with safeguards."
 ---
 
 # Ponytail Skill
@@ -12,7 +12,7 @@ Deliver the smallest correct change first, escalate complexity only when require
 ## 6-Step Ladder
 
 1. YAGNI: no change if behavior is already correct.
-2. Reuse existing Pact Community patterns and local code.
+2. Reuse existing existing project patterns and local code.
 3. Use native/runtime/platform features.
 4. Reuse already-installed dependencies.
 5. Prefer one-liner or tiny patch.

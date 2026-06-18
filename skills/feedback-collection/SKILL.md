@@ -1,6 +1,6 @@
 ---
 name: feedback-collection
-description: "User feedback analysis, routing, and synthesis for Pact Community. Collect, categorize, and route developer feedback to appropriate agents."
+description: "User feedback analysis, routing, and synthesis for Pact projects. Collect, categorize, and route developer feedback to appropriate agents."
 ---
 # Feedback Collection
 

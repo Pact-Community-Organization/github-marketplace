@@ -1,6 +1,6 @@
 ---
 name: technical-writing
-description: "Architecture documentation, design documents, technical guides, and explanation of Pact 5 module design decisions for Pact Community projects."
+description: "Architecture documentation, design documents, technical guides, and explanation of Pact 5 module design decisions for Pact projects."
 ---
 # Technical Writing
 

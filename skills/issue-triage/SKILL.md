@@ -1,6 +1,6 @@
 ---
 name: issue-triage
-description: "Bug and issue classification, priority routing, and initial diagnosis for Pact Community projects. Triage protocol for incoming issues and bug reports."
+description: "Bug and issue classification, priority routing, and initial diagnosis for Pact projects. Triage protocol for incoming issues and bug reports."
 ---
 # Issue Triage
 

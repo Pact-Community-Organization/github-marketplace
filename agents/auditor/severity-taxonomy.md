@@ -1,6 +1,6 @@
 # Audit Finding Severity Taxonomy
 
-This document defines the severity classification system for Pact Community third-party audits, with specific criteria, examples, and decision guidelines.
+This document defines the severity classification system for Pact third-party audits, with specific criteria, examples, and decision guidelines.
 
 ## Severity Matrix
 

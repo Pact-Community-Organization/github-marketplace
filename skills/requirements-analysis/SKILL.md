@@ -1,6 +1,6 @@
 ---
 name: requirements-analysis
-description: "Requirements elicitation, analysis, and documentation for Pact Community: transform needs into testable specs, user stories, and acceptance criteria."
+description: "Requirements elicitation, analysis, and documentation for Pact projects: transform needs into testable specs, user stories, and acceptance criteria."
 ---
 # Requirements Analysis
 

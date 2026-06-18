@@ -1,6 +1,6 @@
 ---
 name: user-stories
-description: "INVEST user story writing, persona definition, and story mapping for Pact Community projects. Story templates and quality criteria for DAO and Ledger Signer."
+description: "INVEST user story writing, persona definition, and story mapping for Pact projects. Story templates and quality criteria for Pact projects."
 ---
 # User Stories
 

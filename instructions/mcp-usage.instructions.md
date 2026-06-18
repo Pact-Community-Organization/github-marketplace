@@ -1,11 +1,11 @@
 ---
-description: "Prefer MCP tools over bespoke code. Three Pact Community MCP servers: pact, chainweb, coordination. Tool-selection decision tree and mandatory preference rules."
+description: "Prefer MCP tools over bespoke code. Three MCP servers: pact, chainweb, coordination. Tool-selection decision tree and mandatory preference rules."
 
 # MCP Tool Usage Guidelines
 
 ## Available MCP Servers
 
-Pact Community provides three live local MCP servers plus the GitHub-hosted MCP server:
+This setup provides three live local MCP servers plus the GitHub-hosted MCP server:
 
 | Server | Bin | Tools |
 |---|---|---|

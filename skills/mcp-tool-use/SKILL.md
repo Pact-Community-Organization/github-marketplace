@@ -7,7 +7,7 @@ description: "Select and invoke pact/chainweb/coordination MCP tools. Decision t
 
 ## Purpose
 
-This skill enables correct selection and invocation of Pact Community MCP tools for Pact 5 smart contract development, Chainweb operations, and multi-agent coordination. MCP tools provide schema validation, audit logging, and type-unwrapping that eliminates common devnet testing failures.
+This skill enables correct selection and invocation of project MCP tools for Pact 5 smart contract development, Chainweb operations, and multi-agent coordination. MCP tools provide schema validation, audit logging, and type-unwrapping that eliminates common devnet testing failures.
 
 ## Selection Flowchart
 

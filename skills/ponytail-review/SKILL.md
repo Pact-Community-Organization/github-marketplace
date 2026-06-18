@@ -1,6 +1,6 @@
 ---
 name: ponytail-review
-description: "Review skill to detect over-engineering and reduce changes to the smallest safe solution in Pact Community workflows and code patches."
+description: "Review skill to detect over-engineering and reduce changes to the smallest safe solution in Pact workflows and code patches."
 ---
 
 # Ponytail Review Skill

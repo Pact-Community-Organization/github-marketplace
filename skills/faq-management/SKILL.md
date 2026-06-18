@@ -1,6 +1,6 @@
 ---
 name: faq-management
-description: "FAQ creation, maintenance, and organization for Pact Community. Track frequently asked questions, common patterns, and self-service answers for developers."
+description: "FAQ creation, maintenance, and organization for Pact projects. Track frequently asked questions, common patterns, and self-service answers for developers."
 ---
 # FAQ Management
 

@@ -105,7 +105,7 @@ They are pure-Pact compositions of native builtins — e.g. `util-lists` wraps
 
 **Reuse-vs-reimplement decision (default: reimplement the one helper you need):**
 - The author flags the lib as **Beta and UNAUDITED** — its own headers warn: *"BE CAREFUL if a
-  security enforcement depends on one of these functions."* Never put a Pact Community security invariant
+  security enforcement depends on one of these functions."* Never put a security invariant
   behind a `free.util-*` call.
 - Taking a cross-module **dependency** on `free.util-*` couples us to a module governed by an external
   keyset (`free.util-lib`) that its owner can upgrade — a supply-chain / blast-radius risk (see

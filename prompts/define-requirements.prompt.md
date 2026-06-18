@@ -1,5 +1,5 @@
 ---
-description: "Product: Define requirements for a new feature — user story, acceptance criteria, priority, and initial scope for Pact Community projects."
+description: "Product: Define requirements for a new feature — user story, acceptance criteria, priority, and initial scope for Pact projects."
 ---
 # Define Requirements
 

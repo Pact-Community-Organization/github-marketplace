@@ -1,6 +1,6 @@
 ---
 name: markitdown-integration
-description: "MarkItDown document ingestion workflows for Pact Community: installation, OCR/plugins, MCP startup, and file-to-Markdown routing."
+description: "MarkItDown document ingestion workflows for Pact projects: installation, OCR/plugins, MCP startup, and file-to-Markdown routing."
 ---
 
 # MarkItDown Integration
@@ -15,7 +15,7 @@ Use this skill to convert heterogeneous files into Markdown for LLM-ready workfl
 - Enabling and validating third-party plugins
 - Running OCR enhancement via `markitdown-ocr`
 - Running the `markitdown-mcp` server (stdio or localhost HTTP)
-- Selecting which Pact Community agents should apply MarkItDown
+- Selecting which the project agents should apply MarkItDown
 
 ## Quick Install (Workspace-Local)
 
@@ -121,5 +121,5 @@ Only expose non-localhost interfaces with explicit approval because the server h
 
 ## Non-Goals
 
-- Not a replacement for Pact Community MCP servers (`pact`, `chainweb`, `coordination`)
+- Not a replacement for the project MCP servers (`pact`, `chainweb`, `coordination`)
 - Not intended for high-fidelity publishing output; optimized for LLM/text analysis workflows

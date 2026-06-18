@@ -12,7 +12,7 @@ description: "DevOps: Set up or modify GitHub Actions CI/CD pipeline for Pact an
 
 ## Workflow Template
 ```yaml
-name: Pact Community CI
+name: Pact CI
 on:
   push:
     branches: [main]

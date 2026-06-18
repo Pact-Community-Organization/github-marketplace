@@ -1,6 +1,6 @@
 ---
 name: backlog-management
-description: "Product backlog management — issue tracking, sprint planning, work item organization, and backlog grooming for Pact Community DAO and Ledger Signer projects."
+description: "Product backlog management — issue tracking, sprint planning, work item organization, and backlog grooming for Pact projects."
 ---
 # Backlog Management
 

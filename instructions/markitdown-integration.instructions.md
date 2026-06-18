@@ -49,4 +49,4 @@ markitdown-mcp --help
 
 - Primary users: `Docs`, `Support`, `Product`
 - Secondary users: `Developer`, `Architect`, `WebDev`, `Auditor`, `Security`, `Tester`
-- Not a replacement for Pact Community blockchain MCP tools (`pact`, `chainweb`, `coordination`); use those for blockchain and coordination operations.
+- Not a replacement for the project blockchain MCP tools (`pact`, `chainweb`, `coordination`); use those for blockchain and coordination operations.

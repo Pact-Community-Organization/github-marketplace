@@ -10,7 +10,7 @@ Refactoring MUST preserve behavior. Every refactoring is verified by existing te
 - Refactor is blocked unless at least one trigger is present: correctness bug, security issue, gas ceiling risk, or compliance failure.
 - Attach evidence for the trigger (failing tests, audit finding, or measured metrics) before work starts.
 - Quantify the expected benefit (for example: reduced failure rate, gas reduction, or compliance gap closure).
-- Repeated redesigns of the same module require Architect + Tester sign-off and a CTO risk note.
+- Repeated redesigns of the same module require Architect + Tester sign-off and an Admin risk note.
 
 ## Before Refactoring
 1. Ensure full test coverage on current behavior

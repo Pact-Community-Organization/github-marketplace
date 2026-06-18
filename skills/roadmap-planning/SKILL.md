@@ -1,6 +1,6 @@
 ---
 name: roadmap-planning
-description: "Long-term feature planning and roadmap creation for Pact Community. Milestone sequencing, dependency mapping, and strategic planning for DAO and Ledger Signer."
+description: "Long-term feature planning and roadmap creation for Pact projects. Milestone sequencing, dependency mapping, and strategic planning for Pact projects."
 ---
 # Roadmap Planning
 
@@ -27,5 +27,5 @@ Risk: {key risk with mitigation}
 - Each milestone delivers user value
 - Dependencies flow forward (never backward)
 - Buffer for security findings and refactoring
-- DAO and Ledger Signer can be parallelized
+- Independent workstreams can be parallelized
 - Security audit at every milestone boundary

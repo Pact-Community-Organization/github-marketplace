@@ -7,7 +7,7 @@
 ```
 # Audit Engagement Request
 
-I am requesting a formal third-party audit of the following Pact Community components.
+I am requesting a formal third-party audit of the following Pact components.
 
 ## Engagement Details
 - **Audit Type**: [Full / Scoped / Re-check]

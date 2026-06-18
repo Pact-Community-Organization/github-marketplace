@@ -1,10 +1,10 @@
-# Pact Community — Tier 1 (always-on router)
+# Pact agent system — Tier 1 (always-on router)
 
-Pact 5 smart contracts on **Kadena Community Edition (KDA-CE)**. Active projects: `pact-examples/`, `ledger-examples/`, `web-examples/`, `mcp/` (archived, out of scope: `_archive/`).
+An agent system for **Pact 5** smart contract development. Pact runs on multiple platforms; these defaults target **Kadena Community Edition (KDA-CE)** — adapt them to whichever Pact platform your project targets.
 
 ## Session start (read once)
 
-Read `docs/memory/INDEX.md` → `PROJECT-STATE.md` ONCE per session (not auto-loaded), then rely on that context — do NOT re-read them each task. Re-read only if you changed them or need a specific lookup. Check `FILE-REGISTRY.md` before creating a file. Scope/identity/irreversible-action and file-placement gates are enforced by the always-on `clarification-protocol` and `workspace-conventions` — follow them, do not restate.
+If your project uses the `docs/memory/` coordination convention, read `INDEX.md` → `PROJECT-STATE.md` ONCE per session (not auto-loaded), then rely on that context — do NOT re-read them each task. Check a file registry (if present) before creating a file. Scope/identity/irreversible-action and file-placement gates are enforced by the always-on `clarification-protocol` and `workspace-conventions` — follow them, do not restate.
 
 ## Universal non-negotiables (no narrower home)
 

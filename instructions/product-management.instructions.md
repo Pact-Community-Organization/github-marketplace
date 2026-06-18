@@ -1,5 +1,5 @@
 ---
-description: "Use when managing product backlog, writing user stories, prioritizing features, or defining acceptance criteria for Pact Community projects (DAO, Ledger Signer)."
+description: "Use when managing product backlog, writing user stories, prioritizing features, or defining acceptance criteria for Pact projects."
 # Product Management Rules
 
 ## User Story Format (INVEST)
