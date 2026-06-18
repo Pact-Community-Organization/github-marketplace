@@ -1,6 +1,6 @@
 ---
 name: pact-devnet-testing
-description: "On-chain devnet testing patterns for Pact 5 on KDA-CE. TypeScript test scripts, pollOne confirmation, type unwrapping, chain time polling, and local preflight."
+description: "On-chain devnet testing patterns for Pact 5 on KDA-CE: TypeScript scripts, pollOne confirmation, type unwrapping, chain-time polling, local preflight."
 ---
 # Pact Devnet Testing
 

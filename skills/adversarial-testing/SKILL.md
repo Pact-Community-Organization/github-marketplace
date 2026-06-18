@@ -1,6 +1,6 @@
 ---
 name: adversarial-testing
-description: "Attack-oriented test design for Pact 5 smart contracts. Exploit capability gaps, test authorization bypass, front-running, gas griefing, and privilege escalation."
+description: "Attack-oriented test design for Pact 5 smart contracts: capability bypass, front-running, gas griefing, privilege escalation."
 ---
 # Adversarial Testing
 
@@ -50,3 +50,33 @@ description: "Attack-oriented test design for Pact 5 smart contracts. Exploit ca
 - Every positive test MUST have a paired adversarial negative
 - Document the attack vector in test comments
 - If attack succeeds → CRITICAL finding
+
+## Attack Development Process
+1. **Identify target** — which function/capability to exploit
+2. **Hypothesize** — what could fail
+3. **Design exploit** — minimal transaction to demonstrate
+4. **Execute on devnet** — port 8083 (Security's dedicated devnet)
+5. **Document** — success = CRITICAL finding, failure = control verified
+
+## TypeScript Devnet Exploit Template
+```typescript
+// Test: call admin function without governance keyset
+const tx = Pact.builder
+  .execution(`(free.dao-token.admin-function)`)
+  .addSigner(attackerKey) // non-admin key
+  .setMeta({ chainId: '0', sender: 'attacker', gasLimit: 150000 })
+  .setNetworkId('development')
+  .createTransaction();
+// Expect: "Keyset failure" error
+// If: success → CRITICAL FINDING
+```
+
+## Attack Report Template
+```markdown
+### Attack: {name}
+Vector: {how the attack works}
+Target: {function/module}
+Devnet Result: {success/failure}
+Severity: {CRITICAL|HIGH|MEDIUM|LOW}
+Evidence: {tx hash, error message, or state dump}
+```

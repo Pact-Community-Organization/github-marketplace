@@ -11,7 +11,7 @@ I am requesting a formal third-party audit of the following Pact Community compo
 
 ## Engagement Details
 - **Audit Type**: [Full / Scoped / Re-check]
-- **Scope**: pact-examples/pact-community/modules/*.pact, pact-examples/pact-community/interfaces/*.pact
+- **Scope**: pact-examples/pact/modules/*.pact, pact-examples/pact/interfaces/*.pact
 - **Branch**: main
 - **Commit**: [current HEAD commit hash]
 - **Deadline**: [date or "no deadline"]
@@ -38,12 +38,12 @@ Please begin by running your mandatory scope clarification questionnaire. Do not
 ### For DAO Audit
 ```
 Key Paths to Review:
-- pact-community/interfaces/governance-types.pact          (Core schema and types)
-- pact-community/modules/governance-token.pact             (Token and account management)
-- pact-community/modules/distribution-module.pact          (Dividend accumulator)
-- pact-community/modules/governance-voting.pact            (Governance and proposals)
-- pact-community/modules/gas-relayer.pact       (Gas payment)
-- pact-community/tests/*.repl                       (Test coverage)
+- pact/interfaces/dao-types.pact          (Core schema and types)
+- pact/modules/dao-token.pact             (Token and account management)
+- pact/modules/dao-dividend.pact          (Dividend accumulator)
+- pact/modules/dao-voting.pact            (Governance and proposals)
+- pact/modules/dao-gas-station.pact       (Gas payment)
+- pact/tests/*.repl                       (Test coverage)
 - ts/                                     (TypeScript integration)
 - docs/adr/                               (Architecture decisions)
 - docs/ARCHITECTURE.md                    (System overview)
@@ -67,7 +67,7 @@ Key Paths to Review:
 ### REPL Test Execution
 ```bash
 # Execute all REPL tests
-for f in pact-community/tests/*.repl; do 
+for f in pact/tests/*.repl; do 
     echo "Testing $f..."
     pact "$f"
     if [ $? -ne 0 ]; then
@@ -92,20 +92,20 @@ cd ts && npm run test:devnet
 #### Pact 5 Trap Detection
 ```bash
 # Read-only violations
-grep -r "try.*\(insert\|update\|write\|with-capability\)" pact-community/
+grep -r "try.*\(insert\|update\|write\|with-capability\)" pact/
 
 # Binary + operator misuse  
-grep -r "+ .* +.*" pact-community/
+grep -r "+ .* +.*" pact/
 
 # pact-id as sole guard
-grep -r "(enforce (= (pact-id)" pact-community/
-grep -r "pact-id" pact-community/ | grep -v "require-capability"
+grep -r "(enforce (= (pact-id)" pact/
+grep -r "pact-id" pact/ | grep -v "require-capability"
 
 # Built-in name collisions
-grep -r "\(let.*\|bind.*\) \(exp\|abs\|log\|mod\|round\|ln\|sqrt\|floor\|ceiling\)" pact-community/
+grep -r "\(let.*\|bind.*\) \(exp\|abs\|log\|mod\|round\|ln\|sqrt\|floor\|ceiling\)" pact/
 
 # Unguarded admin operations
-grep -r "governance\|admin" pact-community/ | grep -v "capability\|with-capability"
+grep -r "governance\|admin" pact/ | grep -v "capability\|with-capability"
 ```
 
 ### Gas Measurement Commands

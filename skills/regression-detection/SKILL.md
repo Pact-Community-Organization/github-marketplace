@@ -31,4 +31,4 @@ description: "Detect regressions from schema migrations, interface drift, cross-
 1. Stop — do not attempt to fix the test
 2. Classify: is this a real regression or a test issue?
 3. Document: what changed, what broke, evidence
-4. Report to Orchestrator with `[HIGH]` severity
+4. Report to Admin with `[HIGH]` severity

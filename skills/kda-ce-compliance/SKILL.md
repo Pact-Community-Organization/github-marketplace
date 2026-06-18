@@ -1,6 +1,6 @@
 ---
 name: kda-ce-compliance
-description: "KDA-CE (Kadena Community Edition) specific patterns, conventions, and compliance requirements. Chainweb API, network IDs, chain management, and platform constraints."
+description: "KDA-CE compliance patterns and requirements: Chainweb API, network IDs, chain management, and platform constraints."
 ---
 # KDA-CE Compliance
 

@@ -19,7 +19,7 @@ description: "Bug and issue classification, priority routing, and initial diagno
 2. Classify by type and severity
 3. Check for duplicates
 4. Add appropriate labels
-5. Route to correct agent via Orchestrator
+5. Route to correct agent via Admin
 
 ## Initial Diagnosis
 ```markdown

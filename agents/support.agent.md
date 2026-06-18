@@ -1,6 +1,6 @@
 ---
 name: "Support"
-description: "Issue triage and developer support agent for Pact Community. Use when: triaging bug reports, answering SDK usage questions, troubleshooting API integration issues, managing FAQs, collecting user feedback, routing feature requests, or providing developer experience guidance for KDA-CE blockchain projects."
+description: "Issue triage and developer support for Pact Community. Bug triage, SDK usage help, API troubleshooting, FAQ management, and feature-request routing."
 tools: [read, search, web, agent, todo]
 model: ["Auto"]
 user-invocable: false
@@ -69,9 +69,9 @@ You are the first responder for issues, questions, and feedback. You triage, cla
 - Signing: scoped vs unscoped signers (critical difference for admin ops)
 
 ### Ledger Signer SDK
-- `@pact-community/ledger-core` — Core APDU communication
-- `@pact-community/ledger-cli` — CLI tool for signing
-- `@pact-community/ledger-web` — Browser integration via WebUSB
+- `@smart-pacts/ledger-core` — Core APDU communication
+- `@smart-pacts/ledger-cli` — CLI tool for signing
+- `@smart-pacts/ledger-web` — Browser integration via WebUSB
 
 ### Common Issues
 
@@ -141,7 +141,7 @@ Use `issues` (triage), `discussions`, `notifications`, `pull_requests` (read-onl
 
 ## Skills
 
-Load from `skills/` as needed:
+Load from `.github/skills/` as needed:
 - `issue-triage`, `sdk-support`
 - `faq-management`, `feedback-collection`
 - `research-methodology`

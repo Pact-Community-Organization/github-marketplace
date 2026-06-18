@@ -1,8 +1,10 @@
 ---
 name: pact-module-validation
-description: "Comprehensive Pact module validation — 4-phase testing (REPL analysis, REPL execution, devnet deploy, devnet verification) for smart contract quality assurance."
+description: "Comprehensive Pact module validation: 4-phase testing (REPL analysis, REPL execution, devnet deploy, devnet verification) for quality assurance."
 ---
 # Pact Module Validation
+
+> Canonical traps: [../../instructions/pact-traps.instructions.md](../../instructions/pact-traps.instructions.md)
 
 ## Four-Phase Testing Protocol
 
@@ -15,7 +17,7 @@ description: "Comprehensive Pact module validation — 4-phase testing (REPL ana
 ### Phase 2: REPL Execution
 - Run all .repl tests
 - Verify all `expect` assertions pass
-- Verify all `expect-failure` assertions catch specific errors
+- Verify all `expect-failure` assertions catch specific errors — match the REPL **Pretty** error substring (never `""`); for devnet/TypeScript assertions match the **on-chain BoundedText** substring (see canonical traps for both columns)
 - Document any failures with evidence
 
 ### Phase 3: Devnet Deploy

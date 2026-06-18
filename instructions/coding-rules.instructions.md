@@ -1,5 +1,5 @@
 ---
-description: "Use when writing Pact 5 smart contract code, TypeScript integration code, or any implementation for KDA-CE. Covers code style, naming conventions, agent tags, and mandatory patterns."
+description: "Use when writing Pact 5 smart contract code, TypeScript integration code, or other KDA-CE implementation. Covers style, naming, agent tags, and patterns."
 applyTo: ["**/*.pact", "**/*.ts", "**/*.js"]
 ---
 # Coding Rules

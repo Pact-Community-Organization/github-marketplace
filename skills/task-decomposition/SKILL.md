@@ -1,6 +1,6 @@
 ---
 name: task-decomposition
-description: "Break user requests into agent-assignable tasks with dependency DAG. Orchestrator skill for decomposing features, bugs, and requests into work items for the 9-agent team."
+description: "Break user requests into agent-assignable tasks with dependency DAG for feature, bug, and request workflows."
 ---
 # Task Decomposition
 

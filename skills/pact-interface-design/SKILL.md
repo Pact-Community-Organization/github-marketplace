@@ -4,6 +4,8 @@ description: "Pact 5 interface definition and implementation — fungible-v2, cr
 ---
 # Pact Interface Design
 
+> Canonical traps: [../../instructions/pact-traps.instructions.md](../../instructions/pact-traps.instructions.md)
+
 ## Interface Definition
 ```pact
 (interface my-interface
@@ -36,10 +38,18 @@ description: "Pact 5 interface definition and implementation — fungible-v2, cr
 ## Key Interfaces
 - `fungible-v2` — Token standard (transfer, balance, etc.)
 - `fungible-xchain-v1` — Cross-chain transfer support
-- `governance-types` — Project-specific shared types for DAO modules
+- `dao-types` — Project-specific shared types for DAO modules
 
 ## Rules
-- Interfaces cannot be upgraded once deployed
-- Adding new requirements = new interface version
-- All public functions must have `@doc` annotation
-- Implementation must match exact signature (types, arity)
+- **Interfaces are immutable** — re-deploying an interface fails with
+  `CannotUpgradeInterface` ("Interface cannot be upgraded:"). Add new
+  requirements as a **new interface version** instead.
+- Interfaces may contain only **signatures** (`defun`, `defcap`, `defpact` with
+  no body), plus `defconst`, `defschema`, `use`, and `@model`/`@doc` metadata —
+  **no function bodies, no `deftable`, no governance**.
+- A `defcap` signature in an interface carries its managed/event metadata
+  (`@managed` / `@event`); implementers must match it.
+- `(implements iface)` requires every interface member to be implemented with an
+  **exact** signature (name, arity, types); a missing or mismatched member fails
+  desugaring with `NotImplemented` / `ImplementationError`.
+- All public functions should carry a `@doc` annotation.

@@ -1,6 +1,6 @@
 ---
 name: gas-station-design
-description: "Pact 5 gas station design — GAS_PAYER capability pattern, capability-guard-backed payer account, drain-attack defense, tx introspection constraints, and cross-chain defpact relaying for KDA-CE."
+description: "Pact 5 gas station design: GAS_PAYER capability, capability-guard payer account, drain defense, tx introspection, defpact relaying."
 ---
 # Gas Station Design
 
@@ -9,7 +9,7 @@ description: "Pact 5 gas station design — GAS_PAYER capability pattern, capabi
 ## What a Gas Station Is
 An **autonomous account that pays gas on behalf of users' transactions**, enabling:
 - **Gasless UX** — users transact without holding KDA for gas.
-- **Defpact continuation relaying** — the station submits `cont` steps so cross-chain transfers don't orphan (see [pact-defpact](../pact-defpact-community/SKILL.md)).
+- **Defpact continuation relaying** — a relayer can submit `cont` steps funded by the station to reduce orphan risk for cross-chain flows (see [pact-defpact](../pact-defpact/SKILL.md)).
 
 The station account is a **principal backed by a capability guard**, so only the constrained `GAS_PAYER` logic can spend from it.
 
@@ -22,15 +22,11 @@ The station provides `coin.GAS` by acquiring its own `GAS_PAYER` capability. The
 
   (defcap GAS_PAYER (user:string limit:integer price:decimal)
     @doc "Constrains WHICH txs this station will fund"
-    ;; 1. Single top-level call only (no arbitrary batches)
-    (enforce (= 1 (length (at 'exec-code (read-msg)))) "single-call only")
-    ;; 2. Only fund calls into an allowed module/function
-    (enforce
-      (= "(free.governance-token." (take 16 (at 0 (at 'exec-code (read-msg)))))
-      "only governance-token calls funded")
-    ;; 3. Bound gas price and limit
-    (enforce (<= price 0.000001) "gas price too high")
-    (enforce (<= limit 1500) "gas limit too high")
+    ;; Portable checks based on canonical GAS_PAYER args
+    (enforce (<= price 0.000001) "gas policy")
+    (enforce (<= limit 1500) "gas policy")
+    ;; Optional project-specific context checks can read request data,
+    ;; but key names/shape are app-defined rather than Pact-canonical.
     (compose-capability (ALLOW_GAS)))
 
   (defcap ALLOW_GAS () true)
@@ -45,7 +41,7 @@ The station provides `coin.GAS` by acquiring its own `GAS_PAYER` capability. The
 )
 ```
 
-Tx introspection: use `read-msg` (and signer/sender fields available in the tx environment) to inspect the funded call and constrain it. Scope the `GAS` capability tightly via `compose-capability` so the guard only releases gas for approved operations.
+Tx introspection: rely first on canonical `GAS_PAYER` arguments (`user`, `limit`, `price`). If you inspect extra request context via `read-msg`, treat those keys as project-defined and validate them defensively. Scope `GAS` tightly via `compose-capability` so the guard releases gas only after all policy checks pass.
 
 ## Drain-Attack Defense
 A gas station holds spendable KDA — an unconstrained station is a free-money faucet:
@@ -56,7 +52,7 @@ A gas station holds spendable KDA — an unconstrained station is a free-money f
 - Keep the `GAS_PAYER` cap composition minimal — release `ALLOW_GAS` only after all checks pass.
 
 ## Cross-Chain Role
-A gas station can submit defpact continuation (`cont`) steps so cross-chain transfers don't orphan (debited on source, never credited on target). Pair the station with a relayer that watches `X_YIELD` events and submits the target-chain `cont` step. See [pact-defpact](../pact-defpact-community/SKILL.md).
+A gas station can fund defpact continuation (`cont`) submissions by a relayer, which reduces the chance of orphaned cross-chain flow state. It does not guarantee completion by itself; pair it with robust continuation monitoring/retry logic and the underlying defpact rollback strategy. See [pact-defpact](../pact-defpact/SKILL.md).
 
 ## Limits
 - **150,000 gas per transaction hard ceiling** — the station cannot fund a tx that exceeds it; bound `limit` well under the ceiling.

@@ -15,7 +15,7 @@ This is the definitive production-readiness audit. Every code path, edge case, a
 
 ## Scope
 
-All 5 modules: `governance-types`, `governance-token`, `distribution-module`, `governance-voting`, `gas-relayer`.
+All 5 modules: `dao-types`, `dao-token`, `dao-dividend`, `dao-voting`, `dao-gas-station`.
 All 20 chains (chain 0 hub + chains 1–19 satellites).
 Multiple shareholders per chain (varying balances, roles, voting behavior).
 
@@ -25,7 +25,7 @@ Use **time manipulation** (`env-chain-data` / block time advancement) to simulat
 
 ## Scenario Matrix — Every Permutation Required
 
-### 1. Token Operations (governance-token)
+### 1. Token Operations (dao-token)
 - Create accounts on all 20 chains (multiple per chain)
 - Buy tokens on hub chain (varying amounts, boundary amounts, insufficient KDA, treasury depletion edge)
 - Same-chain transfers: normal, insufficient balance, zero amount, self-transfer, precision edge cases
@@ -40,7 +40,7 @@ Use **time manipulation** (`env-chain-data` / block time advancement) to simulat
 - Transfer that drops balance to zero after voting
 - Receive tokens after voting (no vote adjustment — only debit adjusts)
 
-### 2. Dividend Operations (distribution-module)
+### 2. Dividend Operations (dao-dividend)
 - Initialize dividend system
 - Split revenue (permissionless crank): normal split, zero revenue, varying dividend_pct
 - Declare dividend on hub: normal, zero amount, non-admin rejection
@@ -54,7 +54,7 @@ Use **time manipulation** (`env-chain-data` / block time advancement) to simulat
 - Revenue split with non-round percentages (precision edge case — N-002 PR#27)
 - Validate accumulator math: `owed = balance × (pps − last_points) + correction` for every claim
 
-### 3. Voting Operations (governance-voting)
+### 3. Voting Operations (dao-voting)
 - Create proposal on hub + all satellites
 - Activate voting after review period
 - Activate voting before review period (rejection)
@@ -85,7 +85,7 @@ Use **time manipulation** (`env-chain-data` / block time advancement) to simulat
 - Config changes between voting cycles — verify old proposals used old config, new proposals use new
 - Admin key rotation scenarios (if applicable)
 
-### 5. Gas Station (gas-relayer)
+### 5. Gas Station (dao-gas-station)
 - Deploy and fund gas station
 - Vote with gas station paying (whitelisted)
 - Claim dividend with gas station paying (whitelisted)

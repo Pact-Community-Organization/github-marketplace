@@ -1,5 +1,5 @@
 ---
-description: "Use when performing tasks that could be handled by MCP tools instead of bespoke shell/TypeScript code. Covers the three Pact Community MCP servers (pact, chainweb, coordination), tool selection guidance, and mandatory preference rules."
+description: "Prefer MCP tools over bespoke code. Three Pact Community MCP servers: pact, chainweb, coordination. Tool-selection decision tree and mandatory preference rules."
 
 # MCP Tool Usage Guidelines
 
@@ -9,9 +9,9 @@ Pact Community provides three live local MCP servers plus the GitHub-hosted MCP 
 
 | Server | Bin | Tools |
 |---|---|---|
-| `@pact-community/mcp-pact` | `pact-community-pact` | `pact.repl_run`, `pact.module_scan` |
-| `@pact-community/mcp-chainweb` | `pact-community-chainweb` | `chainweb.info`, `chainweb.chain_time`, `chainweb.local`, `chainweb.send`, `chainweb.poll` |
-| `@pact-community/mcp-coordination` | `pact-community-coordination` | `coord.task_create`, `coord.task_list`, `coord.task_get`, `coord.task_update`, `coord.task_complete`, `coord.mailbox_send`, `coord.mailbox_read`, `coord.mailbox_ack`, `coord.status_set`, `coord.memory_append` |
+| `@smartpacts/mcp-pact` | `smartpacts-pact` | `pact.repl_run`, `pact.module_scan` |
+| `@smartpacts/mcp-chainweb` | `smartpacts-chainweb` | `chainweb.info`, `chainweb.chain_time`, `chainweb.local`, `chainweb.send`, `chainweb.poll` |
+| `@smartpacts/mcp-coordination` | `smartpacts-coordination` | `coord.task_create`, `coord.task_list`, `coord.task_get`, `coord.task_update`, `coord.task_complete`, `coord.mailbox_send`, `coord.mailbox_read`, `coord.mailbox_ack`, `coord.status_set`, `coord.memory_append` |
 | `github` (remote) | `https://api.githubcopilot.com/mcp/` | `context`, `repos`, `issues`, `pull_requests`, `users`, `actions`, `code_security`, `dependabot`, `discussions`, `gists`, `git`, `labels`, `notifications`, `orgs`, `projects`, `secret_protection`, `security_advisories`, `stargazers`, `copilot`, `copilot_spaces`, `github_support_docs_search` |
 
 **Total: 17 tools across 3 local servers + GitHub MCP (GitHub-hosted, evolving toolsets)**
@@ -103,7 +103,7 @@ The chainweb server automatically unwraps Pact JSON types (`{int: N}`, `{decimal
 
 ## Kill Switch
 
-Set `PACT_COMMUNITY_MCP_DISABLED=true` to disable all MCP servers and fall back to bespoke scripts temporarily during emergencies.
+Set `SMARTPACTS_MCP_DISABLED=true` to disable all MCP servers and fall back to bespoke scripts temporarily during emergencies.
 
 ## Future Tools
 
@@ -117,4 +117,4 @@ The following tools are planned but not yet implemented — do not invoke:
 - [GitHub MCP Server](https://github.com/github/github-mcp-server) — upstream docs
 - [mcp-pact README](../../mcp/packages/mcp-pact/README.md) — pact tool details
 - [mcp-chainweb README](../../mcp/packages/mcp-chainweb/README.md) — chainweb tool details
-- [mcp-coordination README](../../mcp/packages/mcp-coordination/README.md) — coordination tool details
+- [mcp-coordination README](../../mcp/packages/mcp-docs/README.md) — coordination tool details

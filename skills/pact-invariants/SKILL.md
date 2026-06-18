@@ -79,7 +79,7 @@ Every state mutation traces back to an enforced guard.
                   (row-enforced accounts 'guard k))))
 ```
 
-## Project-specific invariants
+## DAO-specific invariants
 
 ### Voting
 - `vote_amount <= balance` during VOTING status.
@@ -95,9 +95,11 @@ Every state mutation traces back to an enforced guard.
 ## Workflow
 1. Pick invariants from the catalog that match the module's risk surface.
 2. Place data-shape ones on the schema, behavioral ones on the defun.
-3. Run `(verify 'module)` — read any counterexample.
-4. Fix code or refine the property; re-verify.
-5. Record the verified set in the module's ADR.
+3. **`(verify 'module)` is NOT implemented in Pact 5.0–5.3** — `@model` is parsed
+  but unenforced. Run `(typecheck 'module)` (5.2+) and assert the same properties
+  via REPL `expect`/`expect-failure` + devnet adversarial tests.
+4. Fix code or refine the property; re-check.
+5. Record the asserted set in the module's ADR.
 
 ## Property categories (mental model)
 - **Safety** — a bad state is never reachable (non-negative balance).

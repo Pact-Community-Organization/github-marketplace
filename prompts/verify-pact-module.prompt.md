@@ -8,7 +8,7 @@ description: "Tester/Security: Run formal verification and typechecking on a Pac
 
 ## 1. Run the tooling (in order)
 ```bash
-pact --check FILE.pact            # parse + load (no eval)
+pact FILE.pact                    # parse + load (no eval)
 pact --check-shadowing FILE.pact  # native-name shadowing (load-time error in 5.1+)
 ```
 ```pact
@@ -16,6 +16,10 @@ pact --check-shadowing FILE.pact  # native-name shadowing (load-time error in 5.
 (verify   'free.my-module)    ; Z3: typecheck + @model properties/invariants
 ```
 - `verify` typechecks first, then discharges `@model` clauses. A typecheck failure makes `verify` results meaningless — fix typecheck first.
+
+## 1.1 Defpact / builtin boundary checks (required)
+- Confirm module source does not rely on REPL-only helpers (`continue-pact`, `pact-state`, `expect`, `expect-failure`).
+- If defpacts exist, verify continuation error expectations are explicit in tests (`DefPactStepMismatch`, `DefPactRollbackMismatch`, `DefPactAlreadyCompleted`, `DefPactIdMismatch` as applicable).
 
 ## 2. Required invariants on fungible tables
 - **Conserves mass**: column-delta of the balance column = 0 across every transfer/mint/burn pair that must net to zero — `(property (= (column-delta table 'balance) 0.0))` style.

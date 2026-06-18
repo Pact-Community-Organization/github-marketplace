@@ -1,8 +1,10 @@
 ---
 name: pact-security-review
-description: "Developer-level security review for Pact 5 code. Capability audit, guard verification, unguarded write detection, and common vulnerability patterns for KDA-CE contracts."
+description: "Developer-level security review for Pact 5: capability audit, guard verification, unguarded writes, common vulnerabilities."
 ---
 # Developer Security Review
+
+> Canonical traps: [../../instructions/pact-traps.instructions.md](../../instructions/pact-traps.instructions.md)
 
 ## Pre-Commit Security Checklist
 
@@ -21,7 +23,7 @@ description: "Developer-level security review for Pact 5 code. Capability audit,
 
 ### Logic Safety
 - [ ] No DML inside `try` blocks
-- [ ] `enforce` boolean arg not reading DB directly (bind to let first)
+- [ ] No DML (insert/update/write) inside `enforce` args or `try` — DB **reads are allowed** (binding a read to a `let` is style/gas only, NOT a correctness requirement)
 - [ ] `+` operator used as binary only
 - [ ] No built-in name shadowing (exp, abs, log, etc.)
 - [ ] Defpact steps have exactly one expression each

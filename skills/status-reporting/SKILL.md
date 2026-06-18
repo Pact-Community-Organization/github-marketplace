@@ -1,6 +1,6 @@
 ---
 name: status-reporting
-description: "Synthesize team progress into user-facing reports. Aggregate agent statuses, task completion, blocker summaries, and quality gate status for the Orchestrator to present."
+description: "Synthesize team progress into user-facing reports: agent status, task completion, blockers, and quality-gate state."
 ---
 # Status Reporting
 

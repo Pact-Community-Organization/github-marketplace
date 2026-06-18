@@ -1,5 +1,5 @@
 ---
-description: "Use when writing tests, designing test strategy, reviewing test quality, or running QA for Pact 5 contracts. Covers REPL testing, devnet testing, TypeScript test patterns, and the dual-scope mandate."
+description: "Test-writing rules for Pact 5: REPL patterns, devnet patterns, TypeScript test patterns, and the dual-scope mandate. Use when writing or reviewing tests."
 applyTo: ["**/*.repl", "**/*.test.ts", "pact-examples/pact/tests/**"]
 # Testing Rules
 

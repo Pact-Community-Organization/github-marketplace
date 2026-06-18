@@ -1,5 +1,5 @@
 ---
-description: "Use when agents communicate with each other, delegate tasks, route findings, or coordinate through the task queue system. Defines the inter-agent message protocol for Pact Community multi-agent architecture."
+description: "Inter-agent message protocol: identity tags, task lifecycle, veto powers, terminal delegation. Use when coordinating agents or routing tasks."
 # Inter-Agent Communication Protocol
 
 ## Identity

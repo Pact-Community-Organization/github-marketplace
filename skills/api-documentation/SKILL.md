@@ -1,6 +1,6 @@
 ---
 name: api-documentation
-description: "API reference documentation generation from Pact module signatures. Function docs, parameter tables, capability requirements, and gas costs for KDA-CE contracts."
+description: "API reference documentation from Pact signatures: function docs, parameter tables, capability requirements, and gas costs."
 ---
 # API Documentation
 

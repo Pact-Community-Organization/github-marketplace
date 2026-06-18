@@ -1,6 +1,6 @@
 ---
 name: mermaid-diagrams
-description: "Generate Mermaid diagrams for architecture visualization, module relationships, capability hierarchies, data flow, and sequence diagrams for Pact 5 smart contracts."
+description: "Generate Mermaid diagrams for architecture, module relationships, capability hierarchies, data flow, and Pact 5 sequences."
 ---
 # Mermaid Diagram Generation
 
@@ -22,12 +22,12 @@ description: "Generate Mermaid diagrams for architecture visualization, module r
 ### Module Dependency DAG
 ```mermaid
 flowchart TD
-    types[governance-types] --> token[governance-token]
-    types --> dividend[distribution-module]
-    types --> voting[governance-voting]
+    types[dao-types] --> token[dao-token]
+    types --> dividend[dao-dividend]
+    types --> voting[dao-voting]
     token --> dividend
     token --> voting
-    voting --> gas[gas-relayer]
+    voting --> gas[dao-gas-station]
 ```
 
 ### Transaction Flow

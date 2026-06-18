@@ -1,5 +1,5 @@
 ---
-description: "Use when running tests, reviewing test results, or producing QA reports. Diagnostic integrity is the HIGHEST PRIORITY for Tester and Security agents. Covers false positive prevention, test failure protocol, and self-audit requirements."
+description: "False-positive prevention and test-failure protocol for Tester/Security. Covers patterns and the mandatory STOP-ANALYZE-CLASSIFY-PROPOSE flow."
 # Diagnostic Integrity Rules — HIGHEST PRIORITY
 
 These rules override ALL other behavioral guidance for Tester and Security agents.

@@ -1,6 +1,6 @@
 ---
 name: agent-self-management
-description: "Self-learning system for agents to update knowledge bases, record lessons learned, track patterns, and improve over time. Used by all agents for continuous self-improvement."
+description: "Self-learning system for agents: update knowledge bases, record lessons, track patterns, and improve over time."
 ---
 # Agent Self-Management
 

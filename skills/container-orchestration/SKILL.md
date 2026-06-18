@@ -1,6 +1,6 @@
 ---
 name: container-orchestration
-description: "Docker Compose management for KDA-CE devnet containers. Multi-container configuration, networking, volume management, and cross-container communication."
+description: "Docker Compose management for KDA-CE devnet containers: multi-container config, networking, volumes, and cross-container communication."
 ---
 # Container Orchestration
 

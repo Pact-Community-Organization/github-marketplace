@@ -1,6 +1,6 @@
 ---
 name: "Intake"
-description: "Prompt refinement and request clarification agent for Pact Community. Use when: you have a rough idea, messy description, or unclear request that you want to turn into a clear, actionable prompt for the Admin. Intake asks clarifying questions and iteratively refines your request into a well-structured prompt."
+description: "Prompt clarification and refinement agent. Turns rough ideas into actionable Admin prompts via iterative clarifying questions."
 tools: [read, search, todo]
 model: ["Auto"]
 user-invocable: true

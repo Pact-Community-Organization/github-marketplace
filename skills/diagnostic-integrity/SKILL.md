@@ -1,6 +1,6 @@
 ---
 name: diagnostic-integrity
-description: "False positive prevention, truth-telling, test failure protocol, and self-audit for maintaining the highest diagnostic integrity in smart contract testing."
+description: "False positive prevention, truth-telling, test-failure protocol, and self-audit for diagnostic integrity in smart contract testing."
 ---
 # Diagnostic Integrity — HIGHEST PRIORITY
 
@@ -24,10 +24,4 @@ description: "False positive prevention, truth-telling, test failure protocol, a
 4. **PROPOSE** — Only after analysis, propose correct action
 
 ## Self-Audit Before Every Report
-- [ ] Every success test has postcondition
-- [ ] Every expect-failure has specific error string
-- [ ] All Pact types unwrapped before comparison
-- [ ] No implicit state dependencies between tests
-- [ ] Expected values from spec, not from code output
-- [ ] Time-dependent tests poll chain time
-- [ ] Every test cites requirement source
+Full self-audit checklist: see `self-audit-checklist.instructions.md`.

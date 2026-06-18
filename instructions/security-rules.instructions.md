@@ -1,5 +1,5 @@
 ---
-description: "Use when reviewing code for security vulnerabilities, performing threat modeling, auditing capabilities, or designing attack vectors for Pact 5 contracts on KDA-CE."
+description: "Use when reviewing Pact 5 code for security vulnerabilities, threat modeling, capability audits, or attack-vector design on KDA-CE."
 ---
 # Security Rules
 

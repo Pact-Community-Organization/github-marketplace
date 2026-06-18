@@ -1,6 +1,6 @@
 ---
 name: ci-cd-pipeline
-description: "GitHub Actions CI/CD pipeline design for Pact 5 and TypeScript. Workflow templates, test automation, deploy gates, and artifact management for KDA-CE projects."
+description: "GitHub Actions CI/CD pipeline design for Pact 5 and TypeScript: workflow templates, test automation, deploy gates, artifact management for KDA-CE."
 ---
 # CI/CD Pipeline
 
@@ -25,7 +25,7 @@ jobs:
 - REPL + TypeScript tests → auto-run on every PR
 - Devnet deploy → requires PR review approval
 - Testnet deploy → requires Tester GO + Security APPROVE
-- Mainnet deploy → requires Orchestrator + all gates
+- Mainnet deploy → requires Admin + all gates
 
 ## Artifact Management
 - Pact module source: versioned in git
@@ -35,4 +35,4 @@ jobs:
 ## Notifications
 - Test failures → notify Developer
 - Security scan findings → notify Security
-- Deploy success/failure → notify DevOps + Orchestrator
+- Deploy success/failure → notify DevOps + Admin

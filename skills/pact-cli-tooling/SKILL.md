@@ -1,12 +1,12 @@
 ---
 name: pact-cli-tooling
-description: "Pact 5.3 CLI and REPL-native tooling — running .repl files, bare-load parse check / --check-shadowing / typecheck, env-gas measurement, verify, LCOV coverage, and the REPL env builtins quick-reference for KDA-CE."
+description: "Pact 5.3 CLI/REPL tooling: .repl execution, parse check, --check-shadowing, typecheck, env-gas measurement, LCOV coverage, REPL builtins reference."
 ---
 # Pact CLI & REPL Tooling
 
 > Canonical traps: [.github/instructions/pact-traps.instructions.md](../../instructions/pact-traps.instructions.md)
 >
-> **Binary location:** the `kadena_repl_sandbox/` symlink in this workspace is broken. Use the real binary at `<local-path>` (v5.3). Run experiments in a temp scratch dir, not in tracked module folders.
+> **Binary location:** use the `pact` 5.3 binary available on your `PATH`. Run experiments in a temp scratch dir, not in tracked module folders.
 
 ## Running Files
 ```bash
@@ -25,9 +25,16 @@ pact --version                 # confirm v5.3
 pact --lsp                     # language server for editor diagnostics
 ```
 - Pact 5.3 has **no `--check` flag** — a bare `pact FILE` invocation IS the load/parse check (no `expect`s run; exit 0 prints `Load successful`).
-- `typecheck` is available as a native (5.2); pair with `(verify 'module)` for typing / formal verification.
+- `typecheck` is available as a native (5.2) for static type checking. There is NO `verify` native in Pact 5.0–5.3 (the Z3 `@model` checker is not ported) — see the Formal Verification section below.
 - Note: a module whose top-level form reads tx data (`(namespace (read-msg 'ns))`) needs `env-data` — verify those via their `.repl` harness, not a bare load.
 - Native name shadowing is load-time rejected in Pact 5.1+ (see canonical traps) — `--check-shadowing` surfaces it ahead of load.
+
+## Builtin Boundary (Core vs REPL-only)
+- Pact 5 splits builtins between on-chain core natives and REPL-only natives.
+- `continue-pact`, `pact-state`, `expect`, `expect-failure`, and other harness helpers are REPL-only flows.
+- `continue-pact` is desugared into arity-specific REPL variants (`RContinuePactRollback*`) and is not an on-chain module primitive callable from Pact module source.
+- On-chain defpact progression happens through continuation command payloads (`cont` with pact-id/step/rollback/proof) interpreted by evaluator resume logic.
+- When auditing module code, treat REPL-only helper usage in `.pact` source as a hard validation failure.
 
 ## Gas Measurement (no devnet needed)
 The fastest way to measure gas is in the REPL — no devnet round-trip.
@@ -42,11 +49,16 @@ The fastest way to measure gas is in the REPL — no devnet round-trip.
 - `env-gas` with no arg **reads** the counter; `(env-gas 0)` **resets** it.
 - `env-gasmodel` selects the model; `env-gaslog` emits a per-operation breakdown.
 
-## Formal Verification
+## Formal Verification — NOT a Pact 5.3 native
+`(verify …)` does **not exist** in Pact 5.0–5.3 — the Z3 `@model` property checker
+is not ported to Pact 5 core (`Semantics.md`: `verify [ ] implemented`). Use the
+real static type checker instead:
 ```pact
-(verify 'free.my-module)   ;; typechecks, then checks @model invariants/properties
+(typecheck 'free.my-module)   ;; static typechecker (5.2+) — types only, NOT @model
 ```
-See [formal-verification](../formal-verification/SKILL.md).
+`@model` annotations are parsed but **unenforced** in 5.3; verify properties via
+REPL `expect`/`expect-failure` + devnet adversarial tests. See
+[formal-verification](../formal-verification/SKILL.md).
 
 ## Coverage
 REPL code coverage (5.3) produces **LCOV** output at `coverage/lcov.info` — feed it to standard coverage reporters in CI.

@@ -41,5 +41,5 @@ const tx = Pact.builder
 
 ## Wallet Integration Patterns
 - Kadena SpireKey for web-based signing
-- Ledger hardware wallet via hardware-signer packages
+- Ledger hardware wallet via ledger-signer packages
 - WalletConnect for mobile wallets

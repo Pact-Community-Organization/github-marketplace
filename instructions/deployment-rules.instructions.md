@@ -1,13 +1,13 @@
 ---
 description: "Use when deploying Pact modules to devnet, testnet, or mainnet. Covers deploy order, gas budgets, signer requirements, and infrastructure rules."
-applyTo: ["pact-examples/pact-community/deploy/**", "pact-examples/ts/scripts/**"]
+applyTo: ["pact-examples/pact/deploy/**", "pact-examples/ts/scripts/**"]
 # Deployment Rules
 
 ## Deploy Order (CRITICAL)
 Module deployment order is strict — no forward references allowed:
-1. Interface modules first (e.g., governance-types)
-2. Core modules next (e.g., governance-token)
-3. Dependent modules last (e.g., distribution-module, governance-voting, gas-relayer)
+1. Interface modules first (e.g., dao-types)
+2. Core modules next (e.g., dao-token)
+3. Dependent modules last (e.g., dao-dividend, dao-voting, dao-gas-station)
 4. Initialization calls after all modules deployed
 
 ## Signer Requirements

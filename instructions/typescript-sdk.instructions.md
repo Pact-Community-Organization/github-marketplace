@@ -1,5 +1,5 @@
 ---
-description: "Use when writing TypeScript integration code for KDA-CE Kadena client SDK, building transactions, signing, or interacting with Pact modules from TypeScript."
+description: "TypeScript integration for the KDA-CE Kadena client SDK: build/sign transactions, decimal serialization, and interacting with Pact modules."
 applyTo: ["**/*.ts", "**/*.js"]
 ---
 # TypeScript SDK Conventions

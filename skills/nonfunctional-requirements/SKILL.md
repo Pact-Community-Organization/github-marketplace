@@ -1,6 +1,6 @@
 ---
 name: nonfunctional-requirements
-description: "Non-functional requirements specification for KDA-CE smart contracts. Gas performance, security properties, scalability limits, and compatibility requirements."
+description: "Non-functional requirements for KDA-CE smart contracts: gas performance, security properties, scalability limits, and compatibility requirements."
 ---
 # Non-Functional Requirements
 
@@ -25,7 +25,7 @@ description: "Non-functional requirements specification for KDA-CE smart contrac
 ### Compatibility
 - Fungible-v2 interface compliance for tokens
 - Kadena client SDK compatibility
-- Ledger hardware wallet support (hardware-signer project)
+- Ledger hardware wallet support (ledger-signer project)
 
 ### Operability
 - Module upgradeable via governance keyset

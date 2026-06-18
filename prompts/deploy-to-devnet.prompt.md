@@ -11,15 +11,15 @@ description: "DevOps: Deploy Pact modules to a KDA-CE devnet instance. Step-by-s
 ## Deploy Steps
 1. Verify devnet health: `curl http://localhost:{port}/info`
 2. Deploy modules in order:
-   - governance-types (interface)
-   - governance-token + tables
-   - distribution-module + tables
-   - governance-voting + tables
-   - gas-relayer + tables
+   - dao-types (interface)
+   - dao-token + tables
+   - dao-dividend + tables
+   - dao-voting + tables
+   - dao-gas-station + tables
 3. Initialize modules:
-   - governance-token.initialize
-   - governance-voting.initialize
-   - governance-voting.set-config
+   - dao-token.initialize
+   - dao-voting.initialize
+   - dao-voting.set-config
 4. Verify deployment:
    - Read config values via local call
    - Check table existence

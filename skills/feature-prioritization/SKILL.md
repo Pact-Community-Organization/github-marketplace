@@ -31,4 +31,4 @@ description: "MoSCoW prioritization, value/effort mapping, and feature ranking f
 2. Classify each by MoSCoW
 3. Plot on value/effort matrix
 4. Order: Quick Wins → Strategic → Fill-Ins → Defer
-5. Validate with user (via Orchestrator)
+5. Validate with user (via Admin)

@@ -1,6 +1,6 @@
 ---
 name: static-analysis
-description: "Automated code scanning for Pact 5 — detect critical traps, built-in name collisions, binary operator errors, read-only violations, and common anti-patterns."
+description: "Automated scanning for Pact 5 code: detect critical traps, built-in name collisions, binary-operator errors, read-only violations, and anti-patterns."
 ---
 # Static Analysis
 
@@ -15,25 +15,28 @@ anti-patterns the compiler/checker doesn't flag — and greps have false positiv
 ## Tier 1 — real tooling FIRST (authoritative)
 
 Run these before any grep. They parse and type the module, so they catch
-shadowing, arity/parse/type errors, and FV violations *correctly*.
+shadowing, and arity / parse / type errors *correctly*.
 
 ```bash
-pact --check FILE.pact            # parse + load check (no eval)
+pact FILE.pact                    # bare load = parse / compile check (exit 0 = "Load successful"; there is NO --check flag)
 pact --check-shadowing FILE.pact  # native-name shadowing (load-time error in 5.1+)
 ```
 
 ```pact
 ; in a .repl, against the loaded module:
-(typecheck 'my-namespace.my-module)   ; native typechecker (5.2+)
-(verify   'my-namespace.my-module)    ; Z3 property checker — typecheck + @model
+(typecheck 'my-namespace.my-module)   ; native typechecker (5.2+) — types only
+;; NOTE: there is NO (verify ...) native in Pact 5.0–5.3. The Z3 @model property
+;; checker is NOT ported to Pact 5 core (Semantics.md: verify "[ ] implemented").
+;; @model is parsed but unenforced — verify properties with REPL + devnet tests.
 ```
 
 What Tier 1 authoritatively flags:
-- Native/built-in **shadowing** (`Variable X shadows native of the same name`).
+- Native/built-in **shadowing** (REPL: `Variable X shadows native with the same name`).
 - **Parse / arity** errors — including `(+ 1 2 3)`
   (`Attempted to apply a closure to too many arguments`).
-- **Type** errors.
-- **@model / invariant** violations with concrete counterexamples.
+- **Type** errors via `(typecheck 'module)` (5.2+).
+- NOTE: `@model` property/invariant checking is **NOT available** in Pact 5.0–5.3
+  (`verify` is not implemented) — see the formal-verification skill.
 
 If Tier 1 fails, fix that first — Tier 2 greps on a non-loading module are noise.
 
@@ -127,8 +130,10 @@ Use the grep walk-up heuristic in
 ### select / keys on a transactional path
 ```bash
 grep -rnE '\b(select|keys|fold-db)\b' pact-examples/pact/modules/
-# These are unbounded table scans. Allowed only on /local read paths, never in a
-# function that runs on-chain in a real tx (gas + non-determinism risk).
+# Unbounded full-table scans (heavy select gas penalty + key-ordering dependence).
+# Pact 5 core does NOT hard-block these on-chain (only txlog/txids/keylog/
+# list-modules/describe-module are truly local-only) — but flag them on tx paths
+# as a gas/non-determinism risk; keep to /local reads.
 ```
 
 ### Deprecated guard constructors
@@ -145,7 +150,7 @@ grep -rnE 'pact-id' pact-examples/pact/modules/
 ```
 
 ## Pre-commit checklist (Developer)
-1. `pact --check` + `pact --check-shadowing` clean on every changed `.pact`.
-2. `(typecheck …)` and `(verify …)` clean on changed modules.
+1. Bare `pact FILE` (load/parse) + `pact --check-shadowing` clean on every changed `.pact`.
+2. `(typecheck 'module)` clean on changed modules (no `verify` in 5.3 — use REPL/devnet tests for `@model` properties).
 3. Tier 2 greps run; every hit read and dispositioned.
 4. Rule 0 confirmed for **every** insert/update/write touched in the diff.

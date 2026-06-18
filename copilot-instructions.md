@@ -1,45 +1,23 @@
-# Pact Community — community workspace
+# Pact Community — Tier 1 (always-on router)
 
-**Pact Community** builds Pact 5 smart contracts on **Kadena Community Edition (KDA-CE)** — a 20-chain braided proof-of-work blockchain.
+Pact 5 smart contracts on **Kadena Community Edition (KDA-CE)**. Active projects: `pact-examples/`, `ledger-examples/`, `web-examples/`, `mcp/` (archived, out of scope: `_archive/`).
 
-## Quick Reference
+## Session start (read once)
 
-| Resource | Path | When to Read |
-|---|---|---|
-| Project state & task status | `docs/memory/INDEX.md` → `PROJECT-STATE.md` | START of every non-trivial task |
-| File registry (anti-duplication) | `docs/memory/FILE-REGISTRY.md` | BEFORE creating any new file |
-| Workspace layout & naming | `instructions/workspace-conventions.instructions.md` | Before adding files/dirs |
-| Pact 5 critical traps | `instructions/pact-traps.instructions.md` | All Pact work |
-| Agent registry & roles | `docs/memory/AGENT-REGISTRY.md` | Multi-agent coordination |
-| Quality gates | `instructions/quality-gate-rules.instructions.md` | Before merging/deploying |
+Read `docs/memory/INDEX.md` → `PROJECT-STATE.md` ONCE per session (not auto-loaded), then rely on that context — do NOT re-read them each task. Re-read only if you changed them or need a specific lookup. Check `FILE-REGISTRY.md` before creating a file. Scope/identity/irreversible-action and file-placement gates are enforced by the always-on `clarification-protocol` and `workspace-conventions` — follow them, do not restate.
 
-## Stack
+## Universal non-negotiables (no narrower home)
 
-Pact 5 · KDA-CE · TypeScript/Node.js · devnet (Docker) / testnet06 / mainnet01  
-Gas ceiling: **150,000** per tx · API: `https://api.chainweb-community.org`
+- Pact deploys require `.github/scripts/pact-static-check.sh` exit 0 — never bypass.
+- Transparency-first: business-critical state and final outcomes on-chain by default; justify any off-chain logic.
+- Stability over churn: no architecture-changing refactor without a problem statement, alternatives, and ADR approval.
+- Code-touching work is minimal-first (`ponytail` skill) unless the user explicitly overrides.
 
-## Non-Negotiables (Every Agent, Every Task)
+## Read only what the task needs
 
-1. **Read `docs/memory/INDEX.md` first** on every non-trivial task — no exceptions.
-2. **Check `FILE-REGISTRY.md` before creating files** — update a canonical file instead.
-3. **All Pact deploys require `pact-static-check.sh` exit 0** — no bypasses.
-4. **Decimal serialization**: always `{ decimal: 'N.0' }` in TypeScript SDK — never raw JS numbers.
-5. **`pact-id` is NOT a sufficient access guard** — use composed capabilities.
-6. **Never assume — ask** when scope, file identity, or irreversible actions are unclear.
-7. **Transparency-first blockchain design**: business-critical state transitions and final outcomes are on-chain by default; minimize off-chain logic and justify it.
-8. **Stability over churn**: no architecture-changing refactor without an explicit problem statement, alternatives, and ADR-backed approval.
+Your context already lists every instruction (with its `applyTo`), skill, and agent description — trust those to self-route; do not duplicate them here. Beyond that auto-routing:
 
-## Output Conventions
-
-All agents prefix outputs with `[AgentName]`. Severity: `[CRITICAL]` · `[HIGH]` · `[MEDIUM]` · `[LOW]`. Uncertain findings: `[UNCERTAIN]`. Deployment verdicts: `[GO]` / `[NO-GO]`.
-
-## Projects
-
-| Project | Path | Status |
-|---|---|---|
-| DAO (smart contracts) | `pact-examples/` | Active — Gate-2 GO, testnet pending |
-| Ledger Signer | `ledger-examples/` | Active — MVP complete |
-| Website | `web-examples/` | Active — Sprint 5 complete |
-| MCP servers | `mcp/` | Active |
-
-_Archived (not in scope): `_archive/equity/`, `_archive/pact-examples/`, `_archive/website-root-stale/`_
+- Domain rules load by path: Pact → `pact-rules` (`*.pact`/`*.repl`); TS SDK → `typescript-sdk`; deploy/gas/security/testing → their `*-rules` instructions.
+- Pact language traps: pull the matching section of `pact-traps.instructions.md` on demand — large, not auto-loaded.
+- Cross-project status & roles: `docs/memory/PROJECT-STATE.md`, `AGENT-REGISTRY.md`.
+- Guardrail mechanism (hooks/scripts, secret scan): `github-guardrails.instructions.md` — loads for `.github/hooks|scripts`.

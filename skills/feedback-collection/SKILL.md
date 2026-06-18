@@ -35,5 +35,5 @@ By category: {breakdown}
 1. Receive feedback
 2. Classify by category
 3. Deduplicate against existing issues
-4. Route to appropriate agent via Orchestrator
+4. Route to appropriate agent via Admin
 5. Track resolution

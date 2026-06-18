@@ -1,5 +1,5 @@
 ---
-description: "Use when evaluating quality gates, determining merge readiness, or making go/no-go decisions. Defines the Three-Gate Model for Pact Community with pass/fail criteria."
+description: "Use when evaluating quality gates, merge readiness, or go/no-go decisions. Defines the Pact Community Three-Gate Model with pass/fail criteria."
 # Quality Gate Rules — Three-Gate Model
 
 ## Gate 1 — Pre-Code

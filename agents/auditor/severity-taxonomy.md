@@ -121,7 +121,7 @@ Severity is determined by combining **Impact** and **Likelihood** assessments:
 - Would exploit disrupt normal operations significantly?
 
 ### MEDIUM
-- **Criteria**: Various Impact-community/Likelihood combinations not qualifying as HIGH or higher
+- **Criteria**: Various Impact/Likelihood combinations not qualifying as HIGH or higher
 - **Deployment Impact**: Should be addressed but may be accepted with documentation
 - **Remediation Timeline**: Next development sprint (2-4 weeks)
 - **Examples**:
@@ -194,7 +194,7 @@ Consider but don't automatically change severity:
 - **Read-only context violations**: DML in `try` blocks or `enforce` arguments
 - **pact-id authorization**: Using `pact-id` as sole guard instead of capabilities
 - **Binary operator errors**: Incorrect use of `+` with multiple arguments
-- **@managed capability violations**: install-capability outside with-capability
+- **@managed capability violations**: install-capability on a non-managed cap, inside a defcap body, or duplicate install (NOT "outside with-capability" — that is not a rule)
 - **Cross-module trust failures**: Inappropriate assumptions about other modules
 
 ### KDA-CE Specific High-Risk Areas
@@ -258,11 +258,11 @@ Severity: CRITICAL (High Impact + High Likelihood)
 - Impact: HIGH (Complete treasury fund loss - $500K+ at risk)
 - Likelihood: HIGH (Single transaction, no authentication required)
 
-Location: distribution-module.pact:89
+Location: dao-dividend.pact:89
 Evidence: `(coin.transfer-create treasury account guard amount)` 
 Code lacks capability guard - any user can drain treasury.
 
-Exploit: `(distribution-module.claim-dividend "attacker" 1000000.0)`
+Exploit: `(dao-dividend.claim-dividend "attacker" 1000000.0)`
 PoC: Verified on devnet - drained entire treasury in one transaction
 ```
 
@@ -274,7 +274,7 @@ Severity: HIGH (High Impact + Medium Likelihood)
 - Impact: HIGH (Governance takeover possible)
 - Likelihood: MEDIUM (Requires significant stake and timing)
 
-Location: governance-voting.pact:156
+Location: dao-voting.pact:156
 Evidence: Vote weight not properly validated against token balance
 Exploit requires purchasing 30%+ stake but enables permanent control.
 ```
@@ -287,7 +287,7 @@ Severity: MEDIUM (Medium Impact + Medium Likelihood)
 - Impact: MEDIUM (DoS potential under high load)  
 - Likelihood: MEDIUM (Requires coordinated transaction volume)
 
-Location: governance-token.pact:234
+Location: dao-token.pact:234
 Evidence: `(select token-table (constantly true))` unbounded
 Could consume excessive gas or hit 150k limit during high activity.
 ```

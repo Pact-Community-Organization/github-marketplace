@@ -1,6 +1,6 @@
 ---
 name: research-methodology
-description: "Structured research framework with source hierarchy, evidence grading, and citation requirements. Used for investigating Pact 5, KDA-CE, blockchain patterns, and technical decisions."
+description: "Structured research framework: source hierarchy, evidence grading, and citations for Pact 5, KDA-CE, and blockchain decisions."
 ---
 # Research Methodology
 

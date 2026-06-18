@@ -1,6 +1,6 @@
 ---
 name: escalation-management
-description: "Handle blockers, inter-agent conflicts, ambiguous requirements, and stalled tasks. Escalation pathways and resolution patterns for the Orchestrator."
+description: "Handle blockers, inter-agent conflicts, ambiguous requirements, and stalled tasks. Escalation pathways and resolution patterns for the Admin."
 ---
 # Escalation Management
 

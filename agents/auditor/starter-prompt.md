@@ -10,7 +10,7 @@ I am requesting a formal third-party audit of the following Pact Community compo
 
 ## Engagement Details
 - **Audit Type**: [Full / Scoped / Re-check]
-- **Scope**: [e.g., pact-examples/pact-community/modules/*.pact, pact-examples/pact-community/interfaces/*.pact]
+- **Scope**: [e.g., pact-examples/pact/modules/*.pact, pact-examples/pact/interfaces/*.pact]
 - **Branch**: [branch name]
 - **Commit**: [commit hash]
 - **Deadline**: [date or "no deadline"]
@@ -49,14 +49,14 @@ Please begin by running your mandatory scope clarification questionnaire. Do not
 
 ### DAO Smart Contracts (Full)
 ```
-- **Scope**: pact-examples/pact-community/interfaces/*.pact, pact-examples/pact-community/modules/*.pact, pact-examples/pact-community/tests/*.repl, pact-examples/ts/, pact-examples/docs/adr/, pact-examples/docker-compose.*.yml, pact-examples/.github/workflows/
+- **Scope**: pact-examples/pact/interfaces/*.pact, pact-examples/pact/modules/*.pact, pact-examples/pact/tests/*.repl, pact-examples/ts/, pact-examples/docs/adr/, pact-examples/docker-compose.*.yml, pact-examples/.github/workflows/
 - **Primary Asset**: KDA tokens in treasury and user accounts
 - **Networks**: devnet, testnet06, mainnet01
 ```
 
 ### DAO Single Module (Scoped)
 ```
-- **Scope**: pact-examples/pact-community/modules/governance-voting.pact, pact-examples/pact-community/tests/governance-voting.repl
+- **Scope**: pact-examples/pact/modules/dao-voting.pact, pact-examples/pact/tests/dao-voting.repl
 - **Primary Asset**: Governance integrity and vote manipulation prevention
 - **Networks**: devnet, testnet06
 ```

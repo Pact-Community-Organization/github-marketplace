@@ -178,10 +178,10 @@
           },
           {
             "id": "M-009",
-            "check": "install-capability placement verified (inside with-capability)",
+            "check": "install-capability usage verified (not in defcap body; valid @managed target; no duplicate install — NOT required inside with-capability)",
             "required": true,
             "status": "pending", 
-            "evidence_required": "install-capability usage analysis with placement verification"
+            "evidence_required": "install-capability usage analysis (defcap-body check, managed-metadata target, duplicate-install check)"
           },
           {
             "id": "M-010",
@@ -262,10 +262,10 @@
           },
           {
             "id": "T-008",
-            "check": "Formal property verification (if @model annotations exist)",
+            "check": "@model annotation review (NOTE: no (verify) native in Pact 5.3 — properties are unenforced spec; confirm via REPL/devnet tests)",
             "required": false,
             "status": "pending",
-            "evidence_required": "Formal verification results or confirmation no @model properties exist"
+            "evidence_required": "@model annotation review + REPL/devnet test evidence (no on-chain verifier exists in Pact 5.3)"
           }
         ]
       },

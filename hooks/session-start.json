@@ -3,7 +3,7 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "echo 'MEMORY PROTOCOL: Before non-trivial tasks — (1) read docs/memory/INDEX.md  (2) read docs/memory/PROJECT-STATE.md  (3) check docs/status/dashboard.json'"
+        "command": "echo 'MEMORY PROTOCOL (once per session): (1) read docs/memory/INDEX.md  (2) read docs/memory/PROJECT-STATE.md  (3) check docs/status/dashboard.json — then reference this context; do not re-read each task'"
       }
     ]
   }

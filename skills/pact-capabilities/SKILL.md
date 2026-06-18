@@ -37,6 +37,12 @@ description: "Pact 5 capability patterns — @managed, @event, compose-capabilit
 These are NOT interchangeable. Choosing wrong either re-runs a guard you didn't
 mean to re-run, or silently grants access.
 
+Error-surface note: when matching failure text, keep rendering context explicit.
+REPL `.repl` failures use Pretty strings, while on-chain/devnet failures use
+BoundedText. Use the canonical mapping table in
+[../../instructions/pact-traps.instructions.md](../../instructions/pact-traps.instructions.md)
+instead of mixing surfaces.
+
 ### `with-capability` — acquire and scope a grant
 - Evaluates the defcap predicate **exactly ONCE**, then runs its body in a scope
   where the cap is granted. Use it at the boundary where authorization happens.
@@ -53,8 +59,8 @@ mean to re-run, or silently grants access.
 
 ### `require-capability` — assert an already-granted cap
 - Asserts a cap is **already in scope**. It does **NOT** evaluate the predicate
-  and does **NOT** scope a body. If the cap is not granted →
-  `require-capability: not granted`.
+  and does **NOT** scope a body. If the cap is not granted, matching error text
+  differs by context (REPL Pretty vs on-chain BoundedText; see canonical traps).
 - **Position matters: put it at the TOP of the function.** This is the canonical
   pattern for private/internal functions (`debit`/`credit`) — they must only be
   reachable from inside the public function that already acquired the cap.
@@ -73,13 +79,19 @@ external caller cannot invoke `debit` directly because the cap is not in scope.
 
 - `compose-capability` brings an inner cap into scope **only WHILE the parent
   cap is granted** — the inner grant is torn down when the parent scope exits.
+- **`compose-capability` is callable ONLY from within a defcap body.** The
+  evaluator runs `enforceStackTopIsDefcap` before composing, so calling
+  `compose-capability` outside a `defcap` (e.g. in a `defun`) is a hard error.
+  Source: `composeCapability` in `pact/Pact/Core/IR/Eval/CEK/CoreBuiltin.hs`.
 - In this workspace/toolchain, **foreign compose has been observed**. Treat
   cross-module composition as a potential privilege path and audit callers,
   call order, and cap boundaries carefully.
 - **VERIFIED: the composed cap's predicate body is evaluated EAGERLY at
   acquisition** of the parent. Do NOT put a `require-capability` for a
   not-yet-granted dependency inside a composed cap — it will fail at the moment
-  the parent acquires, not later.
+  the parent acquires, not later. Source anchor:
+  `pact/Pact/Core/IR/Eval/CEK/CoreBuiltin.hs` (`composeCapability` -> `composeCap`)
+  and `pact/Pact/Core/IR/Eval/CEK/Evaluator.hs` (cap evaluation path).
 
 ```pact
 (defcap MINT (acct:string amount:decimal)
@@ -94,13 +106,8 @@ A `defcap` body is **not a public ACL**. A capability can only be *acquired*
 callers, top-level tx code, and other modules can never grant a module's cap.
 
 VERIFIED — a direct external/foreign-module attempt to acquire a module's cap
-fails at load/run with:
-```
-Module admin necessary for operation but has not been acquired:bank
-```
-(for `(with-capability (bank.CREDIT "x") ...)` from outside `bank`). The cap is
-unreachable from outside — not because its body rejected the caller, but because
-acquisition is module-private.
+fails because module-admin acquisition is required for that module. Use canonical
+trap strings for exact REPL/on-chain wording.
 
 Caveat: cross-module `compose-capability` may still pull a foreign cap into
 scope and eagerly evaluate its body during parent acquisition. Treat weak/`true`
@@ -112,12 +119,11 @@ not what the body says. `require-capability` only checks *scope* — it does **n
 evaluate the cap body — so the functions it guards become **private functions**
 reachable only via the module's own (real-guarded) acquisition path.
 
-> VERIFIED: `with-capability` evaluates the body **exactly once**; subsequent
-> `require-capability` calls for the same cap run the body **zero** times. A
-> direct external call to a private fn fails `require-capability: not granted:
-> (bank.CREDIT "bob")`.
+> VERIFIED behavior summary: `with-capability` performs acquisition-time cap-body
+> evaluation, while `require-capability` checks only scope membership (it does not
+> re-run cap bodies). Use canonical traps for exact failure-string matching.
 
-### coin capability classification (bodies quoted verbatim)
+### coin capability classification (coin module example, not a universal Pact rule)
 
 | Cap | Body | Real guard? | Why safe |
 |-----|------|-------------|----------|
@@ -128,7 +134,7 @@ reachable only via the module's own (real-guarded) acquisition path.
 | `TRANSFER` | `@managed amount TRANSFER-mgr`, composes `(DEBIT sender)`+`(CREDIT receiver)` | ✅ (via composed `DEBIT`) | Scoped/managed signature + real guard pulled in by composition. |
 | `GAS` / `COINBASE` / `GENESIS` / `REMEDIATE` | `true` | ❌ none | "Magic" caps installed **only** by the node's execution machinery on specific protocol paths; consumed via `require-capability`. Presence of the cap *is* the proof of context (Pact 5.2 magic capabilities). |
 
-### Why coin `CREDIT` is a SAFE weak cap
+### Why coin `CREDIT` is a SAFE weak cap (coin-specific example)
 
 Crediting is **not privileged** — anyone may receive funds. Minting-from-nothing
 is prevented **structurally**, not by the `CREDIT` body:
@@ -213,11 +219,13 @@ once per transaction**. Ideal for **VOTE** — one signature, one vote, replay-s
 `coin.TRANSFER` uses `@managed amount TRANSFER-mgr`; `TRANSFER-mgr` subtracts,
 enforces `>= 0.0`, and returns the remainder — the canonical correct pattern.
 
-## HARD RULE — managed caps force signatures (replay protection)
+## Managed capabilities and signatures
 
-If a transaction includes **ANY** managed capability, then **every** capability
-in that transaction **requires a signature** — unscoped/unsigned keys are
-**disallowed**. This is the replay-protection guarantee.
+For managed-cap flows, the critical evaluator rule is installation before use:
+`with-capability` on a managed cap fails if the capability is not installed
+(typically via scoped signatures in `env-sigs` or via `install-capability`).
+This is the source-backed replay-safety mechanism to enforce explicit cap
+provisioning.
 
 ### Scoped signatures
 - Sign with a **clist** (`env-sigs` in REPL) scoping the key to specific caps:
@@ -231,15 +239,20 @@ in that transaction **requires a signature** — unscoped/unsigned keys are
 
 ## install-capability scoping
 
-`install-capability` for a `@managed` cap **MUST be inside the owning
-`with-capability`**. Installing it in the wrong scope means the managed resource
-is not available where the grant runs. (See canonical traps.)
+`install-capability` for a `@managed` cap is constrained by evaluator checks,
+not by a hard "inside owning `with-capability`" rule. The hard checks are:
+not callable within a defcap body (`FormIllegalWithinDefcap` via
+`enforceNotWithinDefcap`), valid managed metadata target (`InvalidManagedCap` —
+plain/`@event` caps cannot be installed), and no duplicate install for the same
+managed token in scope (`CapAlreadyInstalled`). On success it returns the string
+`"Installed capability"`. Source: `installCapability` / `installCap` in
+`pact/Pact/Core/IR/Eval/CEK/CoreBuiltin.hs` and `Evaluator.hs`. See canonical traps.
 
 ## Where capabilities can be acquired
 
 - **You CANNOT acquire a cap inside a defcap body.** Calling `with-capability`
-  inside a `defcap` →
-  `with-capability not allowed within defcap`. Use **`compose-capability`** to
+  inside a `defcap` is rejected as a defcap-illegal form. Use
+  **`compose-capability`** to
   pull in a dependency cap from within a defcap instead.
 - **Direct foreign `with-capability` is blocked** in verified behavior, but
   cross-module composition may still be possible in this workspace/toolchain.
@@ -258,6 +271,8 @@ the pact-events skill for event payload conventions.
    assert-already-granted, no body, top of internal fns.
 2. Manager fn must subtract, enforce `>= 0`, and return the decrement.
 3. Bare `@managed` = single-use per tx (VOTE).
-4. Any managed cap in a tx ⇒ every cap needs a (scoped) signature.
+4. Managed caps must be explicitly installed before acquisition (scoped sigs or
+  `install-capability`).
 5. No `with-capability` inside a defcap — compose instead.
-6. `install-capability` (managed) lives inside the owning `with-capability`.
+6. `install-capability` is validated by evaluator constraints (not-in-defcap,
+   valid managed metadata, no duplicate install).

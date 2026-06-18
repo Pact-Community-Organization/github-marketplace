@@ -23,5 +23,5 @@ Before assigning tasks, verify no circular dependencies exist:
 ## Blocked Task Protocol
 1. Identify the blocker
 2. Notify the blocking agent via mailbox
-3. Escalate to Orchestrator if blocker persists > 1 cycle
+3. Escalate to Admin if blocker persists > 1 cycle
 4. Consider workaround: can the blocked task proceed with assumptions?

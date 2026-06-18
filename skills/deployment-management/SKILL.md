@@ -6,14 +6,14 @@ description: "Pact smart contract deployment scripts and management on KDA-CE. D
 
 ## Deploy Order (DAO)
 ```
-1. governance-types (interface)     — 1,231 gas
-2. governance-token + tables        — 24,644 gas
-3. distribution-module + tables     — 14,525 gas
-4. governance-voting + tables       — 17,133 gas
-5. gas-relayer + tables  — measure with local preflight before deploy (target <= 150,000 gas)
-6. Initialize governance-token      — 306 gas
-7. Initialize governance-voting     — 148 gas
-8. Configure governance-voting      — 146 gas
+1. dao-types (interface)     — 1,231 gas
+2. dao-token + tables        — 24,644 gas
+3. dao-dividend + tables     — 14,525 gas
+4. dao-voting + tables       — 17,133 gas
+5. dao-gas-station + tables  — TBD
+6. Initialize dao-token      — 306 gas
+7. Initialize dao-voting     — 148 gas
+8. Configure dao-voting      — 146 gas
 ```
 
 ## Deploy Script Pattern
@@ -36,7 +36,7 @@ async function deploy(modulePath: string, tables: string[]) {
 | Key | devnet | testnet | mainnet |
 |-----|--------|---------|---------|
 | networkId | development | testnet06 | mainnet01 |
-| host | localhost:{port} | api.chainweb.org | api.chainweb.org |
+| host | localhost:{port} | api.chainweb-community.org | api.chainweb-community.org |
 | gasPrice | 0.00000001 | 0.00000001 | market rate |
 
 ## Rollback

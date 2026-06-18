@@ -6,9 +6,16 @@ description: "Pact formal verification — @model properties, property-based tes
 
 > Canonical traps: [../../instructions/pact-traps.instructions.md](../../instructions/pact-traps.instructions.md). For *choosing which* invariants/properties to write per module, see the `pact-invariants` skill — this skill is the grammar reference.
 
-Pact ships a **Z3-backed property checker**. `(verify 'module-name)` first
-**typechecks** the module, then discharges every `@model` invariant and property
-to the SMT solver. A property holds only if Z3 finds **no counterexample**.
+> **STATUS — Pact 5.0–5.3 / KDA-CE:** the Z3-backed property checker and the
+> `(verify …)` native are **NOT implemented in Pact 5 core**. `verify` is absent
+> from the builtin set and `Semantics.md` tracks it as `[ ] implemented`; only
+> `(typecheck 'module)` exists (since 5.2). The `@model` grammar below **is parsed
+> and accepted as metadata** (coin/marmalade carry `@model`) but is **currently
+> UNENFORCED** — nothing discharges it on-chain or in the REPL. Treat `@model` as
+> executable documentation-of-intent and forward-compatible spec; do real
+> verification with `(typecheck 'module)` + REPL/devnet adversarial tests. The
+> grammar is retained as the canonical reference for when `verify` lands and for
+> Pact-4 parity.
 
 ## Three annotation kinds
 
@@ -145,10 +152,13 @@ use the propositional forms:
 
 ## Recommended baseline (wire into CI)
 - Put `conserves-mass` (`column-delta = 0`) **and** non-negative-balance
-  `(invariant (>= balance 0.0))` on **every fungible table**.
-- Run `(verify 'module)` in CI — Pact 5.1+ exits non-zero on failure.
+  `(invariant (>= balance 0.0))` on **every fungible table** as `@model` spec.
+- **`(verify 'module)` is NOT available in Pact 5.3** — do not wire it into CI.
+  Instead run `(typecheck 'module)` (5.2+) and enforce conservation/auth via REPL
+  `expect`/`expect-failure` + devnet adversarial tests. Keep the `@model`
+  annotations in source as the executable spec for when `verify` ships.
 
-## When verification fails
+## When verification fails (applies once `verify` is available — Pact 4 / future Pact 5)
 1. Read the counterexample (Z3 gives concrete values).
 2. Decide: real bug, or overly strict property?
 3. Real bug → document as a finding, fix the code.

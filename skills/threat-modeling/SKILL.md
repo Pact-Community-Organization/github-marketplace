@@ -1,6 +1,6 @@
 ---
 name: threat-modeling
-description: "STRIDE threat modeling for Pact 5 smart contracts on KDA-CE. Attack trees, threat identification, risk assessment, and mitigation planning for blockchain applications."
+description: "STRIDE threat modeling for Pact 5 smart contracts on KDA-CE: attack trees, threat IDs, risk assessment, mitigation planning."
 ---
 # Threat Modeling — STRIDE
 

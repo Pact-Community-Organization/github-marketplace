@@ -35,4 +35,4 @@ description: "API and SDK usage troubleshooting for @kadena/client, TypeScript i
 **Fix**: Wait for chain sync, fetch actual chain time from header
 
 ## Escalation
-If issue not in quick answers → route to Developer via Orchestrator
+If issue not in quick answers → route to Developer via Admin

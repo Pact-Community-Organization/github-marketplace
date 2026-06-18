@@ -1,5 +1,5 @@
 ---
-description: "Use when designing system architecture, creating ADRs, reviewing module structure, planning cross-chain flows, or evaluating architectural decisions for Pact 5 / KDA-CE. Architecture review checklist and design principles."
+description: "Architecture decision framework for Pact 5 / KDA-CE. Review-question gate, ADR checklist, and gas/cross-chain/dependency design principles."
 # Architecture Rules
 
 ## Seven-Question Framework

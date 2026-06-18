@@ -1,6 +1,6 @@
 ---
 name: capability-analysis
-description: "Deep analysis of Pact 5 capability guards — verify capability composition, managed capabilities, install-capability scoping, and guard enforcement patterns."
+description: "Deep analysis of Pact 5 capability guards: verify capability composition, managed capabilities, install-capability scope, and guard enforcement patterns."
 ---
 # Capability Analysis
 
@@ -14,7 +14,7 @@ description: "Deep analysis of Pact 5 capability guards — verify capability co
 
 ### For Every @managed Capability
 - [ ] Manager function correctly tracks allowance
-- [ ] install-capability is inside with-capability
+- [ ] install-capability usage matches evaluator constraints (not-in-defcap, valid managed metadata, no duplicate install)
 - [ ] Managed amount decreases correctly
 - [ ] Cannot exceed initial allowance
 - [ ] Handles edge cases (zero, exact amount, slightly over)
@@ -25,9 +25,9 @@ description: "Deep analysis of Pact 5 capability guards — verify capability co
 - [ ] All composed caps reach proper enforce-guard
 
 ### Cross-Module Capabilities
-- [ ] Capabilities don't leak across module boundaries
-- [ ] Cross-module calls don't inherit caller's capabilities
-- [ ] Each module re-grants needed capabilities independently
+- [ ] Capability scope is reviewed at each cross-module call boundary
+- [ ] Cross-module paths are checked for foreign-cap composition or wrapper misuse
+- [ ] Callee-side authorization is explicit instead of assuming caller-side scope
 
 ## Capability Map Template
 ```
@@ -43,14 +43,14 @@ Module: {name}
 ## Auditing weak/`true`-body capabilities
 
 A `defcap` body is an **internal gate, not a public ACL**. A cap is acquirable
-only inside its declaring module (external `with-capability` fails
-`Module admin necessary for operation but has not been acquired`). So a
+only inside its declaring module (for canonical behavior and error-rendering
+details, see `.github/instructions/pact-traps.instructions.md`). So a
 `true`/weak-body cap is an **in-module permission token** — security lives at the
 **acquisition site**, not in the body.
 
 ### SAFE-vs-EXPLOITABLE rule
 
-A weak-body (`true` or trivial-`enforce`) capability `C` is **SAFE iff ALL** hold:
+A weak-body (`true` or trivial-`enforce`) capability `C` is **typically safe when all** hold:
 
 1. **No direct public exposure.** No public `defun`/`defpact` step does
    `(with-capability (C ...) ...)` where `C` is the outermost/sole gate and its
@@ -67,14 +67,14 @@ A weak-body (`true` or trivial-`enforce`) capability `C` is **SAFE iff ALL** hol
 5. **`@managed` where one-shot/budgeted.** If it must run once or within a budget,
    `C` (or its parent) is `@managed` so a signature is mandatory and replay within
    the tx is blocked.
-6. **No leakage across modrefs.** `C` is not left in scope when calling external
-   modules.
+6. **Cross-module discipline.** Treat external/module-reference calls as risk
+   boundaries and verify `C` cannot be used through a foreign wrapper path.
 
-**EXPLOITABLE if ANY** of: a public function acquires `C` as the sole gate
-(YODA6 `USER`); `C` is the governance body and the module is upgradeable
-(`(defcap GOV () true)`); a public wrapper acquires `C` before any real guard
-(`bad-credit` free-mint); its parent cap lacks a real guard; or `C` leaks across
-a modref call.
+Treat as **likely exploitable** if any of: a public function acquires `C` as the
+sole gate (YODA6 `USER`); `C` is the governance body and the module is
+upgradeable (`(defcap GOV () true)`); a public wrapper acquires `C` before any
+real guard (`bad-credit` free-mint); or the parent/acquisition path has no real
+authorization check.
 
 ### Fast grep heuristic
 
@@ -82,8 +82,9 @@ Grep every `(with-capability (C` and every `(require-capability (C`. For each
 `with-capability` site, walk **UP** to the nearest enclosing real guard
 (`enforce-guard` / scoped-managed signature / runtime context). A
 `with-capability (C ...)` on a **public path with no real guard between the
-entrypoint and the acquisition** is a finding. If `C`'s body is weak AND it is
-acquired only under a real-guarded parent (or only by runtime context), it is safe.
+entrypoint and the acquisition** is a finding. If `C`'s body is weak and it is
+acquired only under a real-guarded parent (or only by runtime context), that is
+usually acceptable.
 
 ### Magic / execution-context caps (`GAS`, `COINBASE`, `GENESIS`)
 

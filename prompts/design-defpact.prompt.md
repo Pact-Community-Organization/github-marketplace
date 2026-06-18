@@ -11,6 +11,7 @@ description: "Architect/Developer: Design a multi-step or cross-chain defpact â€
 - Number the steps and state, per step: actor, chain, preconditions, state writes, what is yielded.
 - Same-chain defpact: linear steps execute in one transaction context across blocks.
 - Cross-chain: a `(step-with-rollback ...)` or `yield`-with-`target-chain` hands off to another chain.
+- Avoid legacy entity step forms (`(step ENTITY EXPR)`): parser accepts legacy syntax, but Pact 5 defpact desugaring/eval rejects entity usage.
 
 ## 2. Yield / resume object schema
 - Define the **exact** object yielded at each boundary: field names + types.
@@ -42,11 +43,17 @@ description: "Architect/Developer: Design a multi-step or cross-chain defpact â€
 - Emit `X_YIELD` on the source step and `X_RESUME` on the target step so off-chain indexers can pair the two halves of a cross-chain flow.
 - Define event names + parameters; keep them stable for indexers.
 
+## 7.1 Continuation Integrity Checklist (required)
+- Show how `defpact-id`, next `step`, and `rollback` expectations stay consistent across cont calls.
+- Define behavior for stale/duplicate/incorrect continuation submissions (map to expected failures like `DefPactStepMismatch`, `DefPactRollbackMismatch`, `DefPactAlreadyCompleted`).
+- For cross-chain, include a mismatch-handling note for continuation/SPV inconsistency (`CCDefPactContinuationError`).
+
 ## 8. REPL test plan
 - Drive the pact with `continue-pact` and inspect with `pact-state`.
 - Cover: full happy path (all steps), each rollback path, a stalled continuation (orphan), and a replay attempt.
 - Assert yielded/resumed objects field-by-field and assert `X_YIELD`/`X_RESUME` via `env-events`.
 - For cross-chain, simulate the SPV handoff per the pact-defpact skill.
+- Explicitly note that `continue-pact` is REPL-only harness support, not on-chain module code.
 
 ## Output
 - Numbered step table (actor / chain / writes / yield).

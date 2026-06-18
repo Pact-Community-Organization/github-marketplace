@@ -24,7 +24,7 @@ Epics → Stories → Tasks
 3. Capacity check (agent availability)
 4. Select stories for sprint
 5. Decompose stories into tasks
-6. Assign to agents via Orchestrator
+6. Assign to agents via Admin
 
 ## Definition of Ready
 - [ ] User story in INVEST format

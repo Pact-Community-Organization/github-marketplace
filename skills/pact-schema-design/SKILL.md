@@ -1,6 +1,6 @@
 ---
 name: pact-schema-design
-description: "Pact 5 schema and table design — field types, key patterns, deftable/create-table ordering, with-default-read migrations, tombstone deletes, and select/keys local-only constraints for KDA-CE."
+description: "Pact 5 schema and table design: field types, key patterns, deftable/create-table ordering, migrations, tombstones, scan/gas constraints."
 ---
 # Pact Schema Design
 
@@ -78,9 +78,9 @@ Notes:
   ... )
 ```
 
-## Query Costs — local-only
-- `select`, `keys`, and full-table scans are **expensive and intended for `/local` (read-only) queries** — do not use them in on-chain transaction paths; they scan the whole table and will blow the gas budget.
-- **`fold-db` is a map, NOT a reduce** — it applies a function across matching rows and returns a list; it does not accumulate into a single value (see canonical traps). It is also a local-only scan operation.
+## Query Costs — treat as local-first
+- `select`, `keys`, and `fold-db` perform an **unbounded full-table scan** (read every key, then read/filter each row) and carry a heavy select gas penalty. Pact 5 core does **not** hard-block them on-chain (only `txlog`/`txids`/`keylog`/`list-modules`/`describe-module` are truly local-only), but their cost grows with table size and is key-ordering dependent — keep them to `/local` (read-only) query paths, not write transactions. See canonical traps.
+- **`fold-db` is a map, NOT a reduce** — it applies a function across matching rows and returns a list; it does not accumulate into a single value (see canonical traps). Treat it as a scan primitive and use it primarily in local query flows.
 
 ## Anti-Patterns
 - ❌ Row keys are NOT schema fields — a key cannot be read back from a row result; store it in a column if you need it.
@@ -88,4 +88,4 @@ Notes:
 - ❌ Zero/empty defaults that bypass validation checks.
 - ❌ Storing computed values that can be derived on read.
 - ❌ Assuming a field exists without verifying the `.pact` source.
-- ❌ Using `select`/`keys` in a transaction (local-only).
+- ❌ Relying on unbounded `select`/`keys` scans in write transaction paths.

@@ -11,13 +11,7 @@ When: [action]
 Then: [expected result]
 ```
 Maps to:
-```pact
-(begin-tx "Test: {AC description}")
-;; Given: setup env-data, env-sigs
-;; When: call function
-;; Then: expect result
-(commit-tx)
-```
+REPL test scaffolding: see `pact-repl-testing` skill.
 
 ## Test Generation Checklist
 For each public function:

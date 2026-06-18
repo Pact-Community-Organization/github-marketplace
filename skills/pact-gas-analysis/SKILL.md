@@ -5,20 +5,10 @@ description: "Gas measurement, optimization, and budget tracking for Pact 5 on K
 # Pact Gas Analysis
 
 ## Measurement
-```typescript
-// Local preflight for gas measurement
-const result = await client.local(tx);
-console.log(`Gas used: ${result.gas}`);
-// Must be < 150,000
-```
+Budget table + measurement pattern: see `gas-optimization.instructions.md` (canonical).
 
 ## Budget Tracking
-| Module | Deploy Gas | Init Gas | Heaviest Function |
-|--------|-----------|----------|-------------------|
-| governance-types | 1,231 | — | — |
-| governance-token | 24,644 | 306 | transfer |
-| distribution-module | 14,525 | — | claim-dividends |
-| governance-voting | 17,133 | 148 | tally-votes |
+Budget table + measurement pattern: see `gas-optimization.instructions.md` (canonical).
 
 ## Optimization Strategies
 1. **Direct reads** over table scans (`read` vs `fold`/`map`)

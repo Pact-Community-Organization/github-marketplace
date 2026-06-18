@@ -18,7 +18,7 @@ description: "Security incident handling for Pact 5 smart contracts on KDA-CE. R
 - Identify affected module(s)
 - Assess: is the vulnerability being actively exploited?
 - If active: can we freeze the module? (governance keyset)
-- Notify Orchestrator immediately
+- Notify Admin immediately
 
 ### Phase 2: Analyze
 - Root cause analysis

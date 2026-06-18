@@ -1,8 +1,10 @@
 ---
 name: system-architecture
-description: "System-level architecture design for KDA-CE Pact 5 smart contracts. ADR creation, module decomposition, cross-chain patterns, and architecture trade-off analysis."
+description: "System-level architecture design for KDA-CE Pact 5 smart contracts: ADRs, module decomposition, cross-chain patterns, tradeoffs."
 ---
 # System Architecture
+
+> Canonical traps: [../../instructions/pact-traps.instructions.md](../../instructions/pact-traps.instructions.md)
 
 ## Architecture Decision Records (ADRs)
 Capture every significant design decision:
@@ -17,7 +19,7 @@ Consequences: Trade-offs accepted
 
 ## Module Decomposition Criteria
 - Single responsibility per module
-- Gas budget per module ≤ 150k for deploy
+- Deploy-transaction gas ≤ 150k KDA-CE ceiling (this is the per-**transaction** ceiling, not a per-module quota; a single module that exceeds it must be split or deployed across steps)
 - Clear capability boundary (what each module guards)
 - Minimal cross-module writes (prefer read + local compute)
 

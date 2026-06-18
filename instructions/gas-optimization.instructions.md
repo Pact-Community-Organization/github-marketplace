@@ -1,7 +1,9 @@
 ---
-description: "Use when optimizing gas consumption, estimating gas budgets, splitting large transactions, or troubleshooting gas limit exceeded errors in Pact 5 on KDA-CE."
+description: "Optimize gas, estimate budgets, split large transactions, or troubleshoot gas-limit-exceeded errors in Pact 5 on KDA-CE."
 ---
 # Gas Optimization
+
+> Budget-tracking workflow skill: `pact-gas-analysis`.
 
 ## Hard Ceiling
 - 150,000 gas per transaction — no exceptions on KDA-CE
@@ -15,13 +17,13 @@ description: "Use when optimizing gas consumption, estimating gas budgets, split
 
 | Operation | Gas |
 |-----------|-----|
-| governance-types interface | 1,231 |
-| governance-token + 5 tables | 24,644 |
-| distribution-module + 3 tables | 14,525 |
-| governance-voting + 2 tables | 17,133 |
-| governance-token.initialize | 306 |
-| governance-voting.initialize | 148 |
-| governance-voting.set-config | 146 |
+| dao-types interface | 1,231 |
+| dao-token + 5 tables | 24,644 |
+| dao-dividend + 3 tables | 14,525 |
+| dao-voting + 2 tables | 17,133 |
+| dao-token.initialize | 306 |
+| dao-voting.initialize | 148 |
+| dao-voting.set-config | 146 |
 
 ## Optimization Strategies
 1. **Split large modules** — if deploy > 150k, separate module + create-table into two txs
@@ -47,7 +49,7 @@ check and belongs in CI alongside the test suite.
 (env-gaslog)               ; start a per-op gas log
 (env-gas 0)                ; reset the counter to 0
 
-(my-namespace.governance-token.transfer "alice" "bob" 5.0)
+(my-namespace.dao-token.transfer "alice" "bob" 5.0)
 
 (env-gaslog)               ; prints per-operation gas breakdown
 (expect "transfer under budget" true (< (env-gas) 150000))

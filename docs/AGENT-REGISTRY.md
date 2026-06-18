@@ -15,7 +15,6 @@ Canonical agent definitions for this repository.
 - `agents/support.agent.md`: Support and triage agent for issue routing, troubleshooting, and feedback handling.
 - `agents/auditor.agent.md`: Independent-style external audit agent for formal security and risk assessments.
 - `agents/intake.agent.md`: User-facing clarification agent that turns rough requests into precise task prompts.
-- `agents/webdev.agent.md`: Web implementation agent for frontend delivery and web quality constraints.
 - `agents/github-architect.agent.md`: Automation governance agent for `.github/` workflow and policy design.
 
 ## Naming Rules

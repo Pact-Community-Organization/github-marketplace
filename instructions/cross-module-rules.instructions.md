@@ -1,5 +1,5 @@
 ---
-description: "Use when reviewing cross-module interactions, adding state to modules, or modifying interfaces between Pact modules. Prevents integration gaps discovered in PR #47."
+description: "Use when reviewing cross-module interactions, adding state, or modifying Pact module interfaces. Prevents integration gaps found in PR #47."
 # Cross-Module Integration Rules
 
 ## Root Cause (Lesson from PR #47)
