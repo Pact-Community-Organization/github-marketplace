@@ -35,14 +35,13 @@ description: "On-demand canonical traps reference for Pact 5 / KDA-CE. REPL/on-c
 | writing `.repl` tests | REPL testing artifacts · Pact 5 version notes |
 | asserting error substrings (REPL Pretty vs on-chain BoundedText) | Reusable error strings: REPL vs. on-chain rendering |
 
-## Read-only context (`enforce`, `try`) — CORRECTED
+## Read-only context (`enforce`, `try`)
 
 - **No DML (insert/update/write) inside `enforce`'s boolean argument or inside
   `try` — reads ARE allowed.** Only writes fail, with
   `Operation disallowed in read-only or sys-only mode` (on-chain: `Operation is not allowed in read-only or system-only mode.`)
 - Binding reads to a `let` first is a **style/gas preference, not a correctness
-  requirement**. The old "bind DB reads to a let to avoid a read-only error" rule
-  was wrong — reads inside `enforce`/`try` work.
+  requirement** — reads inside `enforce`/`try` work.
 
 ```pact
 ; OK — read inside enforce
@@ -51,7 +50,7 @@ description: "On-demand canonical traps reference for Pact 5 / KDA-CE. REPL/on-c
 (try false (update accounts acct { "balance": 0.0 }))
 ```
 
-## `with-default-read` — CORRECTED
+## `with-default-read`
 
 - **The default object must contain every field you BIND, not every schema
   field.** Omitting an unbound field is fine.
@@ -63,7 +62,7 @@ description: "On-demand canonical traps reference for Pact 5 / KDA-CE. REPL/on-c
 (with-default-read accounts acct { "balance": 0.0 } { "balance" := bal } bal)
 ```
 
-## Native/built-in name shadowing — CORRECTED (load-time rejected)
+## Native/built-in name shadowing (load-time rejected)
 
 - Shadowing a native is a **compile-time hard error in Pact 5.1+** (including
   `defun` parameters), not a silent runtime footgun:
@@ -73,7 +72,7 @@ description: "On-demand canonical traps reference for Pact 5 / KDA-CE. REPL/on-c
   `ceiling` (non-exhaustive — any native name).
 - Detect with `pact --check-shadowing FILE`.
 
-## `pact-id` is unsafe as a guard — CORRECTED (worse than "insufficient")
+## `pact-id` is unsafe as a guard
 
 - `(pact-id)` **throws outside a defpact**:
   `Attempted to fetch defpact data, but currently not within defpact execution` (on-chain: `Attempt to fetch defpact data failed because there's no defpact currently being executed.`)
@@ -591,5 +590,3 @@ Verified in `pact/Pact/Core/IR/Eval/CEK/Evaluator.hs`,
 | crypto native on a no-crypto build / bare REPL | `crypto disabled` | `crypto disabled` |
 | `(+ 1 2 3)` / arity error | `Attempted to apply a closure to too many arguments` | `Failed to apply a function or closure because there were too many arguments.` |
 | binding a native name (load-time) | `shadows native with the same name` | `shadows native with same name` |
-
-**Accuracy correction (2026-06-18):** A prior audit incorrectly replaced the REPL (Pretty) strings with on-chain (BoundedText) strings, breaking `.repl` `expect-failure` substring matching. This section has been restored to distinguish both rendering paths and provide both error forms, source-verified against `kda-community/pact-5` Haskell source code.
