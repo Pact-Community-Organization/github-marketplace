@@ -1,0 +1,18 @@
+# Status — [Project Name]
+
+_Replace this file entirely each sprint. Do not append. ≤50 lines._
+
+## Current Focus
+[What is being built or fixed right now — one paragraph max.]
+
+## Blocked / Waiting
+- [ ] [Anything blocking progress]
+
+## Done This Sprint
+- [x] [Completed items]
+
+## Next
+- [ ] [Next task after current focus is done]
+
+## Open Decisions
+- [Unresolved architecture/design questions that need an ADR]
