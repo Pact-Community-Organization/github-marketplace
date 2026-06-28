@@ -1,0 +1,21 @@
+# [Project Name] — Project Rules
+
+## Project Context
+[Describe what this project builds: module names, interfaces implemented,
+chain(s), governance key strategy, known constraints.]
+
+## Module Catalog
+- `free.<module-name>` — [one-line description]
+
+## Current Sprint
+See `STATUS.md` (replace-not-append, ≤50 lines).
+
+## ADRs
+See `docs/adr/`. Read on demand by name. Never auto-load.
+
+## Static Analysis Gate
+Run `<your-project-path>/.github/scripts/pact-static-check.sh` or
+`~/.claude/scripts/pact-static-check.sh` before any `.pact`/`.repl` edit is done.
+
+## Devnet
+Single instance at port 8081. See `devnet-management` skill for lifecycle commands.

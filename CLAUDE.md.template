@@ -1,0 +1,116 @@
+# [Your Project Name] — Global Rules
+
+## Identity
+[Project description — replace this line. Example: Solo Pact 5 / KDA-CE developer
+building a fungible token with governance and cross-chain transfers.]
+Stack: Pact 5.4ce (KDA-CE fork of kadena-io/pact-5), @kadena/client TypeScript, Docker devnet, KDA-CE.
+
+## Hard Rules
+1. `pact-static-check.sh` must exit 0 before any `.pact`/`.repl` file is considered done.
+2. Business state (governance, balances, votes) lives on-chain by default.
+3. No architecture change without an ADR — flag the decision before implementing.
+4. Ask before acting on anything ambiguous — one question at a time.
+5. Flag immediately when any tracked file approaches its size limit.
+6. Token discipline: prefer small focused reads; reference ADRs by name, open only when needed.
+7. YAGNI ladder (recommended, adjust per team policy) — before writing any code, stop at the
+   first rung that holds: (1) needs to exist? → skip and say so; (2) already in codebase? → reuse;
+   (3) stdlib/Pact built-in? → use it; (4) already-installed dep? → use it;
+   (5) one line? → one line; (6) only then: minimum that works.
+   Never cut: input validation at trust boundaries, capability guards, security, data-loss handlers.
+
+## Static Analysis Gate
+Every `.pact`/`.repl` change: run `scripts/pact-static-check.sh` (installed at
+`~/.claude/scripts/pact-static-check.sh` — copy to your project's CI too).
+Must exit 0. Fix all VIOLATIONs before the edit is complete. WARNs: review and disposition.
+
+## Security Review Agent
+Before shipping any module: invoke `pact-auditor` sub-agent (`~/.claude/agents/pact-auditor.md`).
+Fresh context, no implementation history. Reads code cold. Returns structured findings.
+Trigger: "security review", "ready to ship", or explicit pre-deploy request.
+
+## Skills — read on demand from ~/.claude/skills/<name>.md
+- `pact-architecture`      — governance, namespace mechanics, upgrade/bless pattern
+- `pact-capabilities`      — with-capability, compose, managed caps, weak-body analysis
+- `pact-schema-design`     — schema/table, key strategies, tombstone, no in-place migration
+- `pact-interface-design`  — interface definition, fungible-v2, CannotUpgradeInterface rule
+- `pact-guards`            — guard taxonomy (7 types + principal prefixes k:/w:/r:/u:/c:), escrow
+- `pact-defpact`           — defpact lifecycle, yield/resume, cross-chain SPV, orphan strategy
+- `pact-events`            — emission rules, managed auto-emit, X_YIELD/X_RESUME synthetic events
+- `pact-invariants`        — conservation, monotonic, auth properties, dividend/voting invariants
+- `pact-module-design`     — module template, governance, bless/redeploy, pact-util-lib decision
+- `pact-module-validation` — 4-phase: REPL analysis → REPL exec → devnet deploy → verify
+- `pact-repl-testing`      — test file structure, env-data/env-sigs, critical rules
+- `pact-devnet-testing`    — TypeScript tx pattern, pollOne, type unwrapping, chain time
+- `pact-gas-analysis`      — gas measurement, 150k ceiling, optimization strategies
+- `pact-security-review`   — pre-commit checklist, weak-cap free-mint (YODA6), fix pattern
+- `pact-cli-tooling`       — pact CLI, builtin boundary (REPL-only vs on-chain), env builtins ref
+- `debug-pact`             — error message table, REPL debug trick, TypeScript devnet debugging
+- `kda-ce-compliance`      — network config, 150k gas, Chainweb API, compliance checklist
+- `cross-chain-design`     — hub-and-spoke, SPV proofs, design considerations
+- `gas-station-design`     — GAS_PAYER pattern, drain-attack defense, cross-chain relaying
+- `static-analysis`        — two-tier: pact CLI authoritative, targeted greps backstop
+- `capability-analysis`    — SAFE-vs-EXPLOITABLE rule, audit checklist, capability map template
+- `formal-verification`    — @model grammar, annotation kinds, Pact 5.4ce limits (no verify native)
+- `compliance-verification`— fungible-v2 + fungible-xchain-v1 full surfaces, TRANSFER_XCHAIN one-shot manager
+- `devnet-management`      — lifecycle commands, health check, fresh devnet timing (genesis=2019)
+
+## Instructions — read on demand from ~/.claude/instructions/<name>.md
+- `pact-traps`             — CRITICAL: Pact 5.4ce verified trap reference; read before any .pact edit
+- `pact-rules`             — fundamental patterns: read-only, with-default-read, caps, naming
+- `architecture-rules`     — ADR format, 7-question framework, module design checklist
+- `security-rules`         — STRIDE, capability audit checklist, severity classification
+- `testing-rules`          — REPL + devnet rules, 4-phase mandate, coverage requirements
+- `deployment-rules`       — deploy order, signer rules (scoped vs unscoped), create-table, gas
+- `gas-optimization`       — 150k ceiling, REPL-native measurement, bounded-growth rule
+- `cross-module-rules`     — mandatory checks, modref trust, privilege escalation pattern
+- `diagnostic-integrity-rules` — STOP-ANALYZE-CLASSIFY-PROPOSE, Pact false-positive patterns
+- `coding-rules`           — Pact 5 style, TypeScript decimal rules, on-chain transparency guardrail
+- `commit-conventions`     — conventional commit format, branch naming, PR title
+- `clarification-protocol` — ask-before-acting rule, mandatory triggers, scope creep prevention
+- `refactoring-rules`      — behavior preservation, admission criteria, cross-module impact
+- `workspace-conventions`  — file placement, naming conventions, anti-duplication rules
+- `self-audit-checklist`   — test quality checklist before claiming a task complete
+- `github-guardrails`      — blocked command patterns (rm -rf, force push, curl|bash)
+
+## Slash Commands — type /command-name (installed in ~/.claude/commands/)
+- `/new-pact-module`            — scaffold module + REPL tests + deploy script
+- `/design-defpact`             — defpact: steps, yield/resume, SPV, rollback, test plan
+- `/generate-repl-tests`        — .repl test suite from ADR/acceptance criteria
+- `/generate-integration-stubs` — TypeScript @kadena/client stubs for a module
+- `/validate-pact-module`       — 4-phase validation with source-anchored defpact assertions
+- `/verify-pact-module`         — formal verification + typecheck (no verify native in Pact 5.4ce)
+- `/capability-audit`           — capability hierarchy map with bypass path check
+- `/pact-security-audit`        — security-focused code review checklist
+- `/full-security-audit`        — 5-phase audit (prefer pact-auditor agent for independence)
+- `/security-assessment`        — STRIDE per public function + attack simulation results
+- `/threat-model`               — STRIDE threat model with attack trees and mitigations
+- `/analyze-feature`            — 7-step impact analysis before implementing a feature
+- `/architecture-lockdown`      — architecture freeze session: options → decision → ADR outputs
+- `/architecture-review`        — review ADR/proposal: gas, DAG acyclicity, KDA-CE compliance
+- `/design-test-suite`          — test suite design from ADRs and acceptance criteria
+- `/deploy-to-devnet`           — ordered deploy with gas tracking and verification report
+- `/gas-analysis`               — gas per function vs 150k ceiling with baseline comparison
+- `/migrate-pact-schema`        — new table, admin migration fns, bless list, row-count test
+- `/developer-handoff`          — implementation spec: schemas, caps, gas estimate, deploy notes
+- `/review-pr`                  — dual-scope: isolated changes + full regression
+
+## Memory Discipline
+- `CLAUDE.md` (this + per-project): permanent rules only. Recommended: ≤150 lines.
+- `STATUS.md` (per-project root): current sprint snapshot. Recommended: ≤50 lines, replace not append.
+- `docs/adr/ADR-NNN-slug.md`: architecture decisions — read on demand, never auto-load.
+- No other persistent state. No task lists in docs. No status dashboards.
+
+## Hooks (configure in ~/.claude/settings.json or .claude/settings.json)
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Edit|Write|MultiEdit",
+      "hooks": [{"type": "command", "command": "~/.claude/scripts/pact-static-check.sh"}]
+    }],
+    "Stop": [{
+      "hooks": [{"type": "command", "command": "~/.claude/scripts/session-end-secrets-scan.sh"}]
+    }]
+  }
+}
+```
