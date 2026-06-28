@@ -1,0 +1,6 @@
+{
+  "name": "pact-agents",
+  "version": "0.1.0",
+  "description": "24 Pact/KDA-CE skills, 8 role-based agents, 18 instruction files, and CI scripts for Kadena smart contract development.",
+  "contextFileName": "AGENTS.md"
+}
