@@ -1,120 +1,104 @@
 # Pact Agent Marketplace
 
-Reusable Copilot agents, skills, instructions, prompts, and hooks so Pact and Kadena developers can start building smart contracts fast.
+**24 Pact/KDA-CE skills · 8 role-based agents · 18 instruction files · 24 prompts**
 
-[License: Apache-2.0](LICENSE)
+Domain-specific AI agent configuration for Kadena / Pact 5 smart contract development.
+Installable in one command for Claude Code, Codex, Gemini CLI, and GitHub Copilot.
 
-## What's in This Repo
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue?style=flat-square)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/Pact-Community-Organization/github-marketplace?style=flat-square&label=release)](https://github.com/Pact-Community-Organization/github-marketplace/releases)
 
-| Category | Description | Folder | Count |
-|---|---|---:|---:|
-| Agents | Eight role-based Copilot agents for coordination, delivery, QA, security, and documentation. | [agents](agents) | 8 |
-| Instructions | Always-on and scoped guidance files for behavior, validation, security, and Pact-specific rules. | [instructions](instructions) | 18 |
-| Skills | Pact smart-contract workflow skills: design, capabilities, schema, testing, gas, security, and KDA-CE platform. | [skills](skills) | 24 |
-| Prompts | Reusable task prompts for Pact architecture, implementation, review, security, and validation workflows. | [prompts](prompts) | 24 |
-| Hooks | Copilot hook definitions that call portable runtime scripts in `.github/scripts/`. | [hooks](hooks) | 4 |
+---
 
-## Installation
+## Install
 
-Install everything or copy only the pieces you want into a target repository's `.github/` folder.
-
-### Folder Mapping
-
-- `agents/` → `.github/agents/`
-- `instructions/` → `.github/instructions/`
-- `skills/` → `.github/skills/`
-- `prompts/` → `.github/prompts/`
-- `hooks/` → `.github/hooks/`
-- `.github/scripts/` → `.github/scripts/`
-- `copilot-instructions.md` → `.github/copilot-instructions.md`
-
-### Copy Example
-
+### Claude Code
 ```bash
-git clone https://github.com/Pact-Community-Organization/github-marketplace.git
-cd github-marketplace
-mkdir -p /path/to/target-repo/.github
-cp -R agents /path/to/target-repo/.github/
-cp -R instructions /path/to/target-repo/.github/
-cp -R skills /path/to/target-repo/.github/
-cp -R prompts /path/to/target-repo/.github/
-cp -R hooks /path/to/target-repo/.github/
-mkdir -p /path/to/target-repo/.github/scripts
-cp .github/scripts/*.sh /path/to/target-repo/.github/scripts/
-cp copilot-instructions.md /path/to/target-repo/.github/copilot-instructions.md
+claude plugins add Pact-Community-Organization/github-marketplace
 ```
 
-You can also install a single agent, instruction, skill, prompt, or hook instead of the full set.
+### Codex
+```bash
+codex plugins add Pact-Community-Organization/github-marketplace
+```
 
-## Agents
+### Gemini CLI
+```bash
+gemini extension install https://github.com/Pact-Community-Organization/github-marketplace
+```
 
-| Agent | Description |
+### GitHub Copilot / any tool (copy-paste fallback)
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/Pact-Community-Organization/github-marketplace/main/scripts/install.sh) /path/to/your-repo
+```
+
+Or clone and run manually:
+```bash
+git clone https://github.com/Pact-Community-Organization/github-marketplace.git
+bash github-marketplace/scripts/install.sh /path/to/your-repo
+```
+
+See [docs/agent-portability.md](docs/agent-portability.md) for per-tool setup details and what each install method provides.
+
+---
+
+## What's Inside
+
+This repository ships **only Pact/Kadena domain content** — no generic software-engineering
+skills. The quality bar is the Pact 5 / KDA-CE production stack.
+
+### Skills (24) — Pact 5 / KDA-CE domain only
+
+| Theme | Skills |
 |---|---|
-| Admin | Lead coordinator and sole user-facing orchestration agent. Uses `Admin` as the coordinator name. |
-| Architect | System design agent for ADRs, API design, cross-chain flows, gas budgets, and handoff docs. |
-| Developer | Implementation agent for smart contracts, integration code, tests, and validation support. |
-| Tester | Independent QA agent for adversarial validation, regression testing, and GO/NO-GO decisions. |
-| Security | Security audit agent for threat modeling, capability analysis, and deployment blocking. |
-| Auditor | External-style audit agent for evidence-based reviews and formal verdicts. |
-| DevOps | CI/CD and infrastructure agent for pipelines, deployments, and release operations. |
-| Docs | Documentation agent for API docs, guides, changelogs, and Mermaid diagrams. |
+| Core language | `pact-capabilities`, `pact-guards`, `pact-schema-design`, `pact-module-design`, `pact-interface-design`, `pact-defpact`, `pact-events`, `pact-architecture`, `pact-invariants` |
+| Testing & tooling | `pact-repl-testing`, `pact-devnet-testing`, `pact-module-validation`, `pact-cli-tooling`, `debug-pact`, `static-analysis` |
+| Security & audit | `pact-security-review`, `capability-analysis`, `compliance-verification`, `formal-verification` |
+| Gas & cross-chain | `pact-gas-analysis`, `gas-station-design`, `cross-chain-design` |
+| Platform | `kda-ce-compliance`, `devnet-management` |
 
-## Skills
+### Agents (8) — role-based multi-agent system
 
-This repository ships **only Pact smart-contract language skills** — no generic software-engineering skills. The catalog is grouped by theme for selective install. See [skills](skills) for the full catalog.
+| Agent | Role |
+|---|---|
+| Admin | Coordinator — task delegation, quality-gate tracking, final synthesis |
+| Architect | System design — ADRs, API design, cross-chain flows, gas budgets |
+| Developer | Implementation — smart contracts, integration code, REPL tests |
+| Tester | QA — adversarial validation, GO/NO-GO decisions |
+| Security | Threat modeling, capability audit, deployment blocking |
+| Auditor | External-style audit — formal verdict, PoC exploits, 7-phase methodology |
+| DevOps | CI/CD, deployments, release operations |
+| Docs | API docs, guides, changelogs, Mermaid diagrams |
 
-- Pact Core: `pact-module-design`, `pact-capabilities`, `pact-schema-design`, `pact-interface-design`, `pact-guards`, `pact-defpact`, `pact-events`, `pact-architecture`, `pact-invariants`.
-- Testing & Tooling: `pact-repl-testing`, `pact-devnet-testing`, `pact-module-validation`, `pact-cli-tooling`, `debug-pact`, `static-analysis`.
-- Security & Audit: `pact-security-review`, `capability-analysis`, `compliance-verification`, `formal-verification`.
-- Gas & Cross-chain: `pact-gas-analysis`, `gas-station-design`, `cross-chain-design`.
-- Platform: `kda-ce-compliance`, `devnet-management`.
+### Instructions (18)
 
-## Instructions
+Always-on and scoped guidance: `pact-rules`, `pact-traps`, `coding-rules`, `testing-rules`,
+`security-rules`, `architecture-rules`, `deployment-rules`, `gas-optimization`,
+`clarification-protocol`, `workspace-conventions`, `cross-module-rules`,
+`diagnostic-integrity-rules`, `refactoring-rules`, `self-audit-checklist`,
+`commit-conventions`, `github-guardrails`, `inter-agent-protocol`, `quality-gate-rules`.
 
-The repository ships a focused set of instructions files for behavior and validation:
+### Prompts (24)
 
-- `clarification-protocol.instructions.md`: ask before acting when scope, behavior, or placement is unclear.
-- `workspace-conventions.instructions.md`: keep files in the correct location and avoid duplication.
-- `architecture-rules.instructions.md`: apply architecture decision and design constraints.
-- `coding-rules.instructions.md`: follow Pact and TypeScript implementation conventions.
-- `commit-conventions.instructions.md`: use conventional commit formatting.
-- `cross-module-rules.instructions.md`: protect module boundaries and interface consistency.
-- `deployment-rules.instructions.md`: enforce safe deploy sequencing and approval requirements.
-- `diagnostic-integrity-rules.instructions.md`: keep tests and reviews truthful and reproducible.
-- `gas-optimization.instructions.md`: reason about gas use and optimization.
-- `github-guardrails.instructions.md`: protect hook and script behavior.
-- `inter-agent-protocol.instructions.md`: route messages and tasks between agents cleanly.
-- `pact-rules.instructions.md`: load Pact language-specific rules for `.pact` and `.repl` files.
-- `pact-traps.instructions.md`: reference known Pact pitfalls and verified behaviors.
-- `quality-gate-rules.instructions.md`: apply the multi-gate quality model.
-- `refactoring-rules.instructions.md`: preserve behavior during code transformations.
-- `security-rules.instructions.md`: apply security review expectations and threat controls.
-- `self-audit-checklist.instructions.md`: check your own work before reporting outcomes.
-- `testing-rules.instructions.md`: write and evaluate tests with correct Pact patterns.
+Reusable task prompts for Pact architecture, implementation, review, security, validation,
+and multi-agent coordination workflows.
 
-## Prompts
+### Hooks + CI scripts
 
-Prompts are grouped by the work they support:
+Four Claude Code hook files (`pre-tool-use`, `post-tool-use`, `session-start`, `session-end`)
+backed by portable shell scripts in `.github/scripts/`. Includes `pact-static-check.sh`,
+the static analysis gate that enforces 0 violations before any `.pact`/`.repl` change ships.
 
-- Coordination and planning: `assign-task`, `task-decomposition`, `team-status`, `synthesize-results`.
-- Architecture and design: `architecture-lockdown`, `architecture-review`, `design-defpact`, `new-pact-module`.
-- Implementation and validation: `developer-handoff`, `generate-integration-stubs`, `generate-repl-tests`, `validate-pact-module`, `verify-pact-module`, `design-test-suite`.
-- Security and review: `capability-audit`, `full-security-audit`, `pact-security-audit`, `security-assessment`, `threat-model`, `review-pr`.
-- Deployment and operations: `deploy-to-devnet`, `gas-analysis`.
-- Migration: `migrate-pact-schema`.
-- Analysis and triage: `analyze-feature`, `task-decomposition`, `team-status`.
-
-## Hooks
-
-The bundle ships four hook files: `pre-tool-use.json`, `post-tool-use.json`, `session-start.json`, and `session-end.json`. Runtime scripts live in `.github/scripts/`.
+---
 
 ## Naming Conventions
 
-- Agent files use lowercase `*.agent.md`.
-- Skills use `skills/<name>/SKILL.md`.
-- Instructions use `*.instructions.md`.
-- Prompts use `*.prompt.md`.
-- Admin is the coordinator name.
+- Agent files: lowercase `*.agent.md`
+- Skills: `skills/<name>/SKILL.md`
+- Instructions: `*.instructions.md`
+- Prompts: `*.prompt.md`
+
+---
 
 ## Community Health
 
@@ -122,4 +106,5 @@ The bundle ships four hook files: `pre-tool-use.json`, `post-tool-use.json`, `se
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 - [SECURITY.md](SECURITY.md)
 - [SUPPORT.md](SUPPORT.md)
+- [CHANGELOG.md](CHANGELOG.md)
 - [LICENSE](LICENSE)
