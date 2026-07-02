@@ -38,18 +38,29 @@ description: "On-demand canonical traps reference for Pact 5 / KDA-CE. REPL/on-c
 ## Read-only context (`enforce`, `try`)
 
 - **No DML (insert/update/write) inside `enforce`'s boolean argument or inside
-  `try` — reads ARE allowed.** Only writes fail, with
+  `try`.** Writes fail with
   `Operation disallowed in read-only or sys-only mode` (on-chain: `Operation is not allowed in read-only or system-only mode.`)
-- Binding reads to a `let` first is **NO LONGER NEEDED for correctness** — reads
-  inside `enforce`/`try` work directly. It was historically required only because
-  reads *were* disallowed in `enforce`/`try` until Pact 5.3 made those bodies
-  read-only (reads permitted). Today a `let` binding is justified only for code
-  readability, not correctness or gas. *(auditor: Pascal Kda)*
+- **⚠️ REPL vs ON-CHAIN DIVERGENCE — table READS inside an `enforce` condition work in the
+  REPL but FAIL on the KDA-CE chainweb-node** with
+  `Error during database operation: Operation is not allowed in read-only or system-only mode.`
+  Empirical, devnet-verified 2026-07-01: a full `.repl` suite passed green while the first
+  on-node transaction hitting an `(enforce (<table-reading-expr>) …)` aborted. The Pact 5.3
+  REPL change ("enforce runs read-only — reads permitted") is TRUE FOR THE REPL ONLY; the
+  deployed node still rejects the read. **Rule: ALWAYS bind any table-reading expression to a
+  `let` BEFORE the `enforce` — on-chain this is a CORRECTNESS requirement. A REPL pass is not
+  evidence for this class; only devnet is.**
+- Reads in the **argument position of `enforce-guard`** (e.g. `(enforce-guard (account-guard s))`
+  inside a defcap body) are safe on-chain — the argument evaluates before the guard enforcement
+  (devnet-proven via DEBIT/VOTE-style caps). [UNVERIFIED on-chain: whether a keyset lookup inside
+  an `enforce-one` condition trips the same node check — hoist/bind to be safe.]
 
 ```pact
-; OK — read inside enforce
+; REPL-only OK — FAILS on the KDA-CE node (read inside the enforce condition)
 (enforce (>= (at 'balance (read accounts acct)) amount) "insufficient")
-; FAILS — write inside try → Operation is not allowed in read-only or system-only mode.
+; CORRECT everywhere — bind first
+(let ((bal (at 'balance (read accounts acct))))
+  (enforce (>= bal amount) "insufficient"))
+; FAILS everywhere — write inside try → Operation is not allowed in read-only or system-only mode.
 (try false (update accounts acct { "balance": 0.0 }))
 ```
 
@@ -567,6 +578,7 @@ Verified in `pact/Pact/Core/IR/Eval/CEK/Evaluator.hs`,
 | Trigger | REPL `expect-failure` substring (Pretty instance) | On-chain / devnet substring (BoundedText) |
 |---|---|---|
 | DML (insert/update/write) inside `enforce` arg or `try` | `Operation disallowed in read-only or sys-only mode` | `Operation is not allowed in read-only or system-only mode.` |
+| table READ inside an `enforce` condition | *(passes in the REPL — no error; REPL-invisible)* | `Operation is not allowed in read-only or system-only mode.` |
 | `insert` on existing key | `Value already found while in Insert mode` | `Insert failed because the value already exists in the table:` |
 | `update` on a missing key | `No row found during update in table` | `Update failed because no row was found in table:` |
 | write object doesn't match table schema | `Attempted insert failed due to schema mismatch. Expected:` | `Insert failed because of a schema mismatch with` |
