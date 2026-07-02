@@ -42,6 +42,8 @@ mkdir -p \
   "$CLAUDE_DIR/project-templates"
 
 cp "$SRC/skills/"*.md        "$CLAUDE_DIR/skills/"
+mkdir -p "$CLAUDE_DIR/skills/pact"
+cp "$SRC/skills/pact/SKILL.md" "$CLAUDE_DIR/skills/pact/"
 cp "$SRC/instructions/"*.md  "$CLAUDE_DIR/instructions/"
 cp "$SRC/commands/"*.md      "$CLAUDE_DIR/commands/"
 cp "$SRC/agents/pact-auditor.md" "$CLAUDE_DIR/agents/"
