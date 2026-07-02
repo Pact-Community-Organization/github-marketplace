@@ -11,8 +11,10 @@ emit_warn() { printf 'WARN:      %s\n' "$1"; WARNINGS=$((WARNINGS + 1)); }
 notice() { printf 'NOTICE:    %s\n' "$1"; }
 
 is_missing_msg_data_error() {
+  # Errors that mean "this file needs its deploy/test environment (env-data,
+  # namespaces, keysets), not that the code is wrong" — bare load can't verify.
   printf '%s' "$1" | grep -qiE \
-    'read-(msg|keyset|string|integer|decimal)|no (env-)?data|not (present|found) in (the )?(message|environment|tx)|key .* not found|environment data'
+    'read-(msg|keyset|string|integer|decimal)|no (env-)?data|not (present|found) in (the )?(message|environment|tx)|key .* not found|environment data|namespace not found|cannot find keyset'
 }
 
 FILES=()
