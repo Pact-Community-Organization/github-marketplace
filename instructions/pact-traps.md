@@ -546,6 +546,20 @@ Verified in `pact/Pact/Core/IR/Eval/CEK/Evaluator.hs`,
 
 - **No circular module dependencies** — cross-module references resolve at load
   time.
+- **⚠️ Dependents INLINE their dependency's code at load (empirical, testnet06 KDA-CE
+  2026-07-01 — overwrite experiment, finding F-XP2).** Upgrading module D does NOT
+  affect already-deployed dependent M: M keeps executing its load-time COPY of D's old
+  code **against the live tables** — even calling functions the new D DELETED — with **no
+  bless required and no "hash not blessed" error on this path**. Consequences:
+  (1) an unblessed upgrade does NOT brick dependents (don't rely on brick-by-upgrade to
+  decommission — use explicit pause/kill switches); (2) **any upgrade must redeploy ALL
+  dependent modules in the same release train**, or the dependents silently run OLD
+  semantics against the same tables — a semantic fork, worse than a brick; (3) `bless`
+  is still REQUIRED for cross-chain defpact resumes across an upgrade (yield provenance —
+  see Defpacts). [UNVERIFIED where the "hash not blessed" error actually fires in 5.4ce —
+  possibly only pinned-hash `use` imports.]
+- **Upgrades must trim `create-table` to NEW tables only** — re-running `create-table`
+  for an existing table aborts the entire upgrade tx (empirical, same experiment).
 - **`acquire-module-admin` is the ONLY on-chain path to module admin outside an
   upgrade** (Pact 5 removed the implicit grants Pact 4 performed). `(acquire-module-admin m)`
   runs the module's governance (keyset or gov-cap body); on success it returns
